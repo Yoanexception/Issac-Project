@@ -13,7 +13,7 @@ public class GameWorld
 	public GameWorld(Hero hero)
 	{
 		this.hero = hero;
-		currentRoom = new Spawn(hero, null, null, null, null);
+		currentRoom = new Spawn(hero, new Door(null, false), new Door(null, true), new Door(null, true), new Door(null, false));
 	}
 
 	public void processUserInput()

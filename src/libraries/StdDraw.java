@@ -532,6 +532,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	public static final Color YELLOW = Color.YELLOW;
 
+	public static final Color BROWN = new Color(222,184,135);
+
 	/**
 	 * Shade of blue used in <em>Introduction to Programming in Java</em>. It is
 	 * Pantone 300U. The RGB values are approximately (9, 90, 166).
