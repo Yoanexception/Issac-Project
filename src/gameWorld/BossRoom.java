@@ -7,11 +7,15 @@ public class BossRoom extends Room{
 	
 	private Boss boss;
 
-	public BossRoom(Hero hero, Room leftRoom, Room rightRoom, Room upRoom, Room downRoom) {
+	public BossRoom(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom) {
 		super(hero, leftRoom, rightRoom, upRoom, downRoom);
-		// TODO Auto-generated constructor stub
+		generateBoss();
 	}
 
+	
+	public void generateBoss() {
+		
+	}
 	
 	
 }

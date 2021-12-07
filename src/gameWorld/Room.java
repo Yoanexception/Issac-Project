@@ -3,23 +3,24 @@ package gameWorld;
 import gameobjects.Hero;
 import libraries.StdDraw;
 import libraries.Vector2;
+import resources.ImagePaths;
 import resources.RoomInfos;
 
 public class Room
 {
 	private Hero hero;
-	private Room leftRoom;
-	private Room rightRoom;
-	private Room upRoom;
-	private Room downRoom;
+	private Door leftDoor;
+	private Door rightDoor;
+	private Door upDoor;
+	private Door downDoor;
 
-	public Room(Hero hero, Room leftRoom, Room rightRoom, Room upRoom, Room downRoom)
+	public Room(Hero hero, Door leftDoor, Door rightDoor, Door upDoor, Door downDoor)
 	{
 		this.hero = hero;
-		this.downRoom = downRoom;
-		this.leftRoom = leftRoom;
-		this.rightRoom = rightRoom;
-		this.upRoom = upRoom;
+		this.downDoor = downDoor;
+		this.leftDoor = leftDoor;
+		this.rightDoor = rightDoor;
+		this.upDoor = upDoor;
 	}
 
 
@@ -43,14 +44,18 @@ public class Room
 	public void drawRoom()
 	{
 		// For every tile, set background color.
-		StdDraw.setPenColor(StdDraw.GRAY);
+		StdDraw.setPenColor(StdDraw.DARK_GRAY);
 		for (int i = 0; i < RoomInfos.NB_TILES; i++)
 		{
 			for (int j = 0; j < RoomInfos.NB_TILES; j++)
 			{
 				Vector2 position = positionFromTileIndex(i, j);
-				StdDraw.filledRectangle(position.getX(), position.getY(), RoomInfos.HALF_TILE_SIZE.getX(),
-						RoomInfos.HALF_TILE_SIZE.getY());
+				if(j == 0 || i == 0 || j == RoomInfos.NB_TILES - 1 || i == RoomInfos.NB_TILES - 1) {
+					StdDraw.picture(position.getX(), position.getY(), ImagePaths.WALL);
+				} else {
+					StdDraw.filledRectangle(position.getX(), position.getY(), RoomInfos.HALF_TILE_SIZE.getX(),
+							RoomInfos.HALF_TILE_SIZE.getY());
+				}
 			}
 		}
 		hero.drawGameObject();

@@ -8,7 +8,7 @@ public class MonstersRoom extends Room {
 	
 	private Monster[] monster;
 
-	public MonstersRoom(Hero hero, Room leftRoom, Room rightRoom, Room upRoom, Room downRoom, int nbMonster) {
+	public MonstersRoom(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom, int nbMonster) {
 		super(hero, leftRoom, rightRoom, upRoom, downRoom);
 		this.monster = new Monster[nbMonster];
 		generateMonster(nbMonster);

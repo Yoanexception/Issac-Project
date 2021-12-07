@@ -7,7 +7,7 @@ public class Shop extends Room{
 	
 	private Item[] item;
 
-	public Shop(Hero hero, Room leftRoom, Room rightRoom, Room upRoom, Room downRoom, int nbItem) {
+	public Shop(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom, int nbItem) {
 		super(hero, leftRoom, rightRoom, upRoom, downRoom);
 		this.item = new Item[nbItem];
 		generateItem(nbItem);
