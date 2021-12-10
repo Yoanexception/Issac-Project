@@ -1,5 +1,6 @@
 package gameobjects;
 
+import gameWorld.Room;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.HeroInfos;
@@ -14,7 +15,7 @@ public class Hero
 	private Vector2 direction;
 	private int life;
 	private double speedAttack;
-	private double damageAttack;
+	private int damageAttack;
 	
 
 	public Hero(Vector2 position, Vector2 size, double speed, String imagePath)
@@ -25,6 +26,8 @@ public class Hero
 		this.imagePath = imagePath;
 		this.direction = new Vector2();
 		this.life = HeroInfos.ISSAC_LIFE;
+		this.damageAttack = HeroInfos.ISSAC_DAMAGE_ATTACK;
+		this.speedAttack = 0;
 	}
 
 	public void updateGameObject()
@@ -44,6 +47,13 @@ public class Hero
 			setPosition(positionAfterMoving);
 		}
 		direction = new Vector2();
+
+		if (speedAttack != 0) {
+			speedAttack -= 0.005;
+			if(speedAttack < 0){
+				speedAttack = 0;
+			}
+		}
 	}
 
 	public void drawGameObject()
@@ -75,12 +85,22 @@ public class Hero
 		getDirection().addX(1);
 	}
 
+	public void shoot(Vector2 direction) {
+		if(speedAttack == 0){
+			Larme l = new Larme(position, damageAttack, direction, HeroInfos.ISSAC_RANGE);
+			Room.addLarme(l);
+			speedAttack = HeroInfos.ISSAC_SPEED_ATTACK;
+		}
+	}
+
 	public Vector2 getNormalizedDirection()
 	{
 		Vector2 normalizedVector = new Vector2(direction);
 		normalizedVector.euclidianNormalize(speed);
 		return normalizedVector;
 	}
+
+
 
 
 	/*

@@ -2,6 +2,7 @@ package gameWorld;
 
 import gameobjects.Hero;
 import libraries.StdDraw;
+import libraries.Vector2;
 import resources.Controls;
 
 public class GameWorld
@@ -57,6 +58,18 @@ public class GameWorld
 		if (StdDraw.isKeyPressed(Controls.goLeft))
 		{
 			hero.goLeftNext();
+		}
+		if (StdDraw.isKeyPressed(Controls.shootUp)){
+			hero.shoot(new Vector2(0, 1));
+		}
+		if (StdDraw.isKeyPressed(Controls.shootDown)){
+			hero.shoot(new Vector2(0,-1));
+		}
+		if(StdDraw.isKeyPressed(Controls.shootLeft)){
+			hero.shoot(new Vector2(-1, 0));
+		}
+		if(StdDraw.isKeyPressed(Controls.shootRight)){
+			hero.shoot(new Vector2(1, 0));
 		}
 	}
 }

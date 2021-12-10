@@ -1,11 +1,15 @@
 package gameWorld;
 
 import gameobjects.Hero;
+import gameobjects.Larme;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.HeroInfos;
 import resources.ImagePaths;
 import resources.RoomInfos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Room
 {
@@ -14,6 +18,7 @@ public class Room
 	private Door rightDoor;
 	private Door upDoor;
 	private Door downDoor;
+	private static ArrayList<Larme> larme = new ArrayList<Larme>();
 
 	public Room(Hero hero, Door leftDoor, Door rightDoor, Door upDoor, Door downDoor)
 	{
@@ -24,6 +29,9 @@ public class Room
 		this.upDoor = upDoor;
 	}
 
+	public static void addLarme(Larme l){
+		larme.add(l);
+	}
 
 	/*
 	 * Make every entity that compose a room process one step
@@ -31,6 +39,7 @@ public class Room
 	public void updateRoom()
 	{
 		makeHeroPlay();
+		makeLarmePlay();
 	}
 
 
@@ -39,56 +48,70 @@ public class Room
 		hero.updateGameObject();
 	}
 
+	private void makeLarmePlay() {
+		ArrayList<Larme> toRemove = new ArrayList<Larme>();
+		for(Larme l : larme){
+			l.updateGameObject();
+			if(l.getDead()){
+				toRemove.add(l);
+			}
+		}
+		larme.removeAll(toRemove);
+	}
+
 	/*
 	 * Drawing
 	 */
 	public void drawRoom()
 	{
-		String doorOpen = ImagePaths.OPENED_DOOR;
-		String doorClosed = ImagePaths.CLOSED_DOOR;
-		// For every tile, set background color.
-		StdDraw.setPenColor(StdDraw.BROWN);
+		// For every tile, set background colors
 		for (int i = 0; i < RoomInfos.NB_TILES; i++)
 		{
 			for (int j = 0; j < RoomInfos.NB_TILES; j++)
 			{
 				Vector2 position = positionFromTileIndex(i, j);
-				if(j == 0 || i == 0 || j == RoomInfos.NB_TILES - 1 || i == RoomInfos.NB_TILES - 1) {
-					if(j == 0 && i == RoomInfos.NB_TILES / 2 && downDoor != null) {
-						if(downDoor.isOpen()){
-							StdDraw.picture(position.getX(), position.getY(), doorOpen);
-						} else {
-							StdDraw.picture(position.getX(), position.getY(), doorClosed);
-						}
-					} else if(j == RoomInfos.NB_TILES - 1 && i == RoomInfos.NB_TILES / 2 && upDoor != null) {
-						if(upDoor.isOpen()){
-							StdDraw.picture(position.getX(), position.getY(), doorOpen);
-						} else {
-							StdDraw.picture(position.getX(), position.getY(), doorClosed);
-						}
-					} else if(i == 0 && j == RoomInfos.NB_TILES / 2 && leftDoor != null) {
-						if(leftDoor.isOpen()){
-							StdDraw.picture(position.getX(), position.getY(), doorOpen);
-						} else {
-							StdDraw.picture(position.getX(), position.getY(), doorClosed);
-						}
-					} else if(i == RoomInfos.NB_TILES - 1 && j == RoomInfos.NB_TILES / 2 && rightDoor != null) {
-						if(rightDoor.isOpen()){
-							StdDraw.picture(position.getX(), position.getY(), doorOpen);
-						} else {
-							StdDraw.picture(position.getX(), position.getY(), doorClosed);
-						}
-					} else {
-						StdDraw.picture(position.getX(), position.getY(), ImagePaths.WALL);
-					}
+				if(!(j == 0 || i == 0 || j == RoomInfos.NB_TILES - 1 || i == RoomInfos.NB_TILES - 1)) {
+					StdDraw.setPenColor(StdDraw.BROWN);
+					StdDraw.filledRectangle(position.getX(), position.getY(), RoomInfos.HALF_TILE_SIZE.getX(),
+							RoomInfos.HALF_TILE_SIZE.getY());
 				} else {
+					StdDraw.setPenColor(StdDraw.DARK_BROWN);
 					StdDraw.filledRectangle(position.getX(), position.getY(), RoomInfos.HALF_TILE_SIZE.getX(),
 							RoomInfos.HALF_TILE_SIZE.getY());
 				}
 			}
 		}
+		drawDoor();
+		drawLarme();
 		hero.drawGameObject();
 		showLifeHero();
+	}
+
+	public void drawLarme(){
+		for(Larme l : larme){
+			StdDraw.picture(l.getPosition().getX(), l.getPosition().getY(), l.getImagePath(), 0.05,0.05);
+		}
+	}
+
+	public void drawDoor(){
+		String doorOpen = ImagePaths.OPENED_DOOR;
+		String doorClosed = ImagePaths.CLOSED_DOOR;
+		if(downDoor != null) {
+			Vector2 positionDownDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, 0);
+			StdDraw.picture(positionDownDoor.getX(), positionDownDoor.getY(),  downDoor.isOpen() ? doorOpen : doorClosed);
+		}
+		if(upDoor != null) {
+			Vector2 positionUpDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, RoomInfos.NB_TILES - 1);
+			StdDraw.picture(positionUpDoor.getX(), positionUpDoor.getY(), upDoor.isOpen() ? doorOpen : doorClosed);
+		}
+		if(leftDoor != null) {
+			Vector2 positionLeftDoor = positionFromTileIndex(0, RoomInfos.NB_TILES / 2);
+			StdDraw.picture(positionLeftDoor.getX(), positionLeftDoor.getY(), leftDoor.isOpen() ? doorOpen : doorClosed);
+		}
+		if(rightDoor != null) {
+			Vector2 positionRightDoor = positionFromTileIndex(RoomInfos.NB_TILES - 1, RoomInfos.NB_TILES / 2);
+			StdDraw.picture(positionRightDoor.getX(), positionRightDoor.getY(), rightDoor.isOpen() ? doorOpen : doorClosed);
+		}
 	}
 
 	public void showLifeHero(){

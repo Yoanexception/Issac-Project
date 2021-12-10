@@ -533,6 +533,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	public static final Color YELLOW = Color.YELLOW;
 
 	public static final Color BROWN = new Color(222,184,135);
+	public static final Color DARK_BROWN = new Color(54,34,4);
 
 	/**
 	 * Shade of blue used in <em>Introduction to Programming in Java</em>. It is
