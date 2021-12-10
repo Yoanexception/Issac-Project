@@ -3,6 +3,7 @@ package gameWorld;
 import gameobjects.Hero;
 import libraries.StdDraw;
 import libraries.Vector2;
+import resources.HeroInfos;
 import resources.ImagePaths;
 import resources.RoomInfos;
 
@@ -87,6 +88,24 @@ public class Room
 			}
 		}
 		hero.drawGameObject();
+		showLifeHero();
+	}
+
+	public void showLifeHero(){
+		double x = 0.15;
+		for(int i = 0; i < HeroInfos.ISSAC_LIFE; i+= 2){
+			StdDraw.picture(x, 0.85,ImagePaths.EMPTY_HEART_HUD, 0.05, 0.05);
+			x += 0.05;
+		}
+		x = 0.15;
+		for(int i = 1; i <= hero.getLife(); i++){
+			if(i%2 == 0){
+				StdDraw.picture(x, 0.85,ImagePaths.HEART_HUD, 0.05, 0.05);
+				x += 0.05;
+			} else {
+				StdDraw.picture(x, 0.85,ImagePaths.HALF_HEART_HUD, 0.05, 0.05);
+			}
+		}
 	}
 	
 	/**

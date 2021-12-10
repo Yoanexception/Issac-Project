@@ -2,6 +2,7 @@ package gameobjects;
 
 import libraries.StdDraw;
 import libraries.Vector2;
+import resources.HeroInfos;
 
 public class Hero
 {
@@ -11,7 +12,7 @@ public class Hero
 	private String imagePath;
 	private double speed;
 	private Vector2 direction;
-	private double life;
+	private int life;
 	private double speedAttack;
 	private double damageAttack;
 	
@@ -23,6 +24,7 @@ public class Hero
 		this.speed = speed;
 		this.imagePath = imagePath;
 		this.direction = new Vector2();
+		this.life = HeroInfos.ISSAC_LIFE;
 	}
 
 	public void updateGameObject()
@@ -32,11 +34,16 @@ public class Hero
 
 	private void move()
 	{
+		double xmax = 0.8900000000000003;
+		double xmin = 0.10999999999999968;
+		double ymax = 0.9000000000000004;
+		double ymin = 0.12999999999999967;
 		Vector2 normalizedDirection = getNormalizedDirection();
 		Vector2 positionAfterMoving = getPosition().addVector(normalizedDirection);
-		setPosition(positionAfterMoving);
+		if(positionAfterMoving.getX() < xmax && positionAfterMoving.getX() > xmin && positionAfterMoving.getY() < ymax && positionAfterMoving.getY() > ymin){
+			setPosition(positionAfterMoving);
+		}
 		direction = new Vector2();
-		
 	}
 
 	public void drawGameObject()
@@ -128,4 +135,8 @@ public class Hero
 	{
 		this.direction = direction;
 	}
+
+	public void setLife(int life) { this.life = life;}
+
+	public int getLife() { return life; }
 }
