@@ -3,12 +3,12 @@ package resources;
 import libraries.Vector2;
 
 public class MonstersInfo {
-    public static Vector2 SPIDER_SIZE = RoomInfos.TILE_SIZE.scalarMultiplication(0.7);
+    public static Vector2 SPIDER_SIZE = new Vector2(0.08, 0.05);
     public static double SPIDER_SPEED = 0.01;
     public static int SPIDER_DAMAGE = 1;
     public static int SPIDER_LIFE = 5;
 
-    public static Vector2 FLY_SIZE = RoomInfos.TILE_SIZE.scalarMultiplication(0.7);
+    public static Vector2 FLY_SIZE = new Vector2(0.05,0.05);
     public static double FLY_SPEED = 0.01;
     public static int FLY_DAMAGE = 2;
     public static int FLY_LIFE = 3;
