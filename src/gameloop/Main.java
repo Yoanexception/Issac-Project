@@ -31,6 +31,7 @@ public class Main
 		StdDraw.clear();
 		world.processUserInput();
 		world.updateGameObjects();
+		world.ifHeroHitDoor();
 		world.drawGameObjects();
 		StdDraw.show();
 		Timer.waitToMaintainConstantFPS();

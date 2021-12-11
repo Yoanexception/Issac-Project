@@ -143,4 +143,63 @@ public class Room
 		return new Vector2(indexX * RoomInfos.TILE_WIDTH + RoomInfos.HALF_TILE_SIZE.getX(),
 				indexY * RoomInfos.TILE_HEIGHT + RoomInfos.HALF_TILE_SIZE.getY());
 	}
+
+	public boolean heroHitUpDoor() {
+		Vector2 positionUpDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, RoomInfos.NB_TILES - 1);
+		if (hero.getPosition().getY() > positionUpDoor.getY() - 0.06
+				&& hero.getPosition().getX() > positionUpDoor.getX() - 0.04
+				&& hero.getPosition().getX() < positionUpDoor.getX() + 0.04) {
+			if (upDoor != null && upDoor.isOpen()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean heroHitDownDoor() {
+		Vector2 positionDownDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, 0);
+		if (hero.getPosition().getY() < positionDownDoor.getY() + 0.085
+				&& hero.getPosition().getX() > positionDownDoor.getX() - 0.04
+				&& hero.getPosition().getX() < positionDownDoor.getX() + 0.04) {
+			if (downDoor != null && downDoor.isOpen()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean heroHitLeftDoor() {
+		Vector2 positionLeftDoor = positionFromTileIndex(0, RoomInfos.NB_TILES / 2);
+		if (hero.getPosition().getY() < positionLeftDoor.getY() + 0.04
+				&& hero.getPosition().getY() > positionLeftDoor.getY() - 0.04
+				&& hero.getPosition().getX() < positionLeftDoor.getX()  - 0.06) {
+			if (leftDoor != null && leftDoor.isOpen()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean heroHitRightDoor() {
+		Vector2 positionRightDoor = positionFromTileIndex(RoomInfos.NB_TILES - 1, RoomInfos.NB_TILES / 2);
+		if (hero.getPosition().getY() < positionRightDoor.getY() + 0.04
+				&& hero.getPosition().getY() > positionRightDoor.getY() - 0.04
+				&& hero.getPosition().getX() > positionRightDoor.getX()  - 0.085) {
+			if (rightDoor != null && rightDoor.isOpen()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public Door getUpDoor(){ return upDoor; }
+	public Door getDownDoor(){ return downDoor; }
+	public Door getLeftDoor(){ return leftDoor; }
+	public Door getRightDoor(){ return rightDoor; }
+
+	public void setUpDoor(Door upDoor){ this.upDoor = upDoor; }
+	public void setDownDoor(Door downDoor){ this.downDoor = downDoor; }
+	public void setLeftDoor(Door leftDoor){ this.leftDoor = leftDoor; }
+	public void setRightDoor(Door rightDoor){ this.rightDoor = rightDoor; }
 }

@@ -48,4 +48,8 @@ public class Monster {
 		this.life = life;
 	}
 
+	public String getImagePath() {
+		return "";
+	}
+
 }

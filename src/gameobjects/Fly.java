@@ -9,14 +9,14 @@ public class Fly extends Monster {
 	private double damage;
 	private double projectilDamage;
 	private double projectilSpeed;
-	private double projectilLength;
+	private double projectilRange;
 	
-	public Fly(Vector2 position, Vector2 size, double speed, double life, double projectilLength, double damage, double projectilDamage, double projectilSpeed) {
+	public Fly(Vector2 position, Vector2 size, double speed, double life, double damage, double projectilRange, double projectilDamage, double projectilSpeed) {
 		super(position, size, speed, life);
 		this.imagePath = ImagePaths.FLY;
 		this.damage = damage;
 		this.projectilDamage = projectilDamage;
-		this.projectilLength = projectilLength;
+		this.projectilRange = projectilRange;
 		this.projectilSpeed = projectilSpeed;
 	}
 
@@ -52,12 +52,12 @@ public class Fly extends Monster {
 		this.projectilSpeed = projectilSpeed;
 	}
 
-	public double getProjectilLength() {
-		return projectilLength;
+	public double getProjectilRange() {
+		return projectilRange;
 	}
 
-	public void setProjectilLength(double projectilLength) {
-		this.projectilLength = projectilLength;
+	public void setProjectilRange(double projectilRange) {
+		this.projectilRange = projectilRange;
 	}
 	
 }

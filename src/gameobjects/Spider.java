@@ -12,7 +12,7 @@ public class Spider extends Monster {
 		super(position, size, speed, life);
 		this.imagePath = ImagePaths.SPIDER;
 	}
-	
+
 	public String getImagePath() {
 		return imagePath;
 	}

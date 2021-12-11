@@ -14,7 +14,9 @@ public class GameWorld
 	public GameWorld(Hero hero)
 	{
 		this.hero = hero;
-		currentRoom = new Spawn(hero, new Door(null, false), new Door(null, true), new Door(null, true), new Door(null, false));
+		MonstersRoom monsterTestRoom = new MonstersRoom(hero, null, null, null, null, 10);
+		Door spawnDoor = new Door(monsterTestRoom, true);
+		currentRoom = new Spawn(hero, null, spawnDoor, null, null);
 	}
 
 	public void processUserInput()
@@ -72,4 +74,12 @@ public class GameWorld
 			hero.shoot(new Vector2(1, 0));
 		}
 	}
+
+	public void ifHeroHitDoor(){
+		if(currentRoom.heroHitUpDoor()){currentRoom = currentRoom.getUpDoor().getNextRoom();}
+		if(currentRoom.heroHitDownDoor()){currentRoom = currentRoom.getDownDoor().getNextRoom();}
+		if(currentRoom.heroHitLeftDoor()){currentRoom = currentRoom.getLeftDoor().getNextRoom();}
+		if(currentRoom.heroHitRightDoor()){currentRoom = currentRoom.getRightDoor().getNextRoom();}
+	}
+
 }
