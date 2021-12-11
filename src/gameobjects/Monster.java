@@ -16,6 +16,21 @@ public class Monster {
 		this.life = life;
 	}
 
+	public boolean isHit(Larme l){
+		if(
+				l.getPosition().getX() > position.getX() - size.getX() / 2
+				&& l.getPosition().getX() < position.getX() + size.getX() / 2
+				&& l.getPosition().getY() > position.getY() - size.getY() / 2
+				&& l.getPosition().getY() < position.getY() + size.getY() / 2
+		) {
+			life -= 1;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isDead () { return life == 0; }
+
 	public Vector2 getPosition() {
 		return position;
 	}
@@ -51,5 +66,6 @@ public class Monster {
 	public String getImagePath() {
 		return "";
 	}
+
 
 }

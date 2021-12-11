@@ -1,9 +1,6 @@
 package gameWorld;
 
-import gameobjects.Fly;
-import gameobjects.Hero;
-import gameobjects.Monster;
-import gameobjects.Spider;
+import gameobjects.*;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.MonstersInfo;
@@ -50,10 +47,32 @@ public class MonstersRoom extends Room {
 		drawMonster();
 	}
 
+	public void updateRoom(){
+		super.updateRoom();
+		updateMonster();
+	}
+
 	public void drawMonster(){
 		for(Monster m : monster){
 			StdDraw.picture(m.getPosition().getX(), m.getPosition().getY(), m.getImagePath(), m.getSize().getX(), m.getSize().getY());
 		}
+	}
+
+	public void updateMonster(){
+		ArrayList<Monster> monsterToDelete = new ArrayList<>();
+		ArrayList<Larme> larmeToDelete = new ArrayList<>();
+		for(Monster m : monster){
+			for(Larme l : super.getLarme()){
+				if(m.isHit(l)){
+					larmeToDelete.add(l);
+				}
+				if(m.isDead()){
+					monsterToDelete.add(m);
+				}
+			}
+		}
+		super.deleteLarme(larmeToDelete);
+		monster.removeAll(monsterToDelete);
 	}
 
 	public void monsterDead(){

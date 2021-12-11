@@ -29,10 +29,6 @@ public class Room
 		this.upDoor = upDoor;
 	}
 
-	public static void addLarme(Larme l){
-		larme.add(l);
-	}
-
 	/*
 	 * Make every entity that compose a room process one step
 	 */
@@ -192,6 +188,14 @@ public class Room
 		return false;
 	}
 
+	public static void addLarme(Larme l){
+		larme.add(l);
+	}
+	public ArrayList<Larme> getLarme() {return larme;}
+
+	public void deleteLarme(ArrayList<Larme> toDelete){
+		larme.removeAll(toDelete);
+	}
 
 	public Door getUpDoor(){ return upDoor; }
 	public Door getDownDoor(){ return downDoor; }

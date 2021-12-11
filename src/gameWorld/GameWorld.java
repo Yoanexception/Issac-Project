@@ -14,9 +14,12 @@ public class GameWorld
 	public GameWorld(Hero hero)
 	{
 		this.hero = hero;
-		MonstersRoom monsterTestRoom = new MonstersRoom(hero, null, null, null, null, 10);
-		Door spawnDoor = new Door(monsterTestRoom, true);
-		currentRoom = new Spawn(hero, null, spawnDoor, null, null);
+		MonstersRoom monster2Room = new MonstersRoom(hero, null,null,null,null, 3);
+		Door monstersDoor = new Door(monster2Room, false);
+		MonstersRoom monsterRoom = new MonstersRoom(hero, null, monstersDoor, null, null, 2);
+		Door spawnDoor = new Door(monsterRoom, true);
+		Spawn spawnRoom = new Spawn(hero, null, null, spawnDoor, null);
+		currentRoom = spawnRoom;
 	}
 
 	public void processUserInput()
@@ -76,10 +79,23 @@ public class GameWorld
 	}
 
 	public void ifHeroHitDoor(){
-		if(currentRoom.heroHitUpDoor()){currentRoom = currentRoom.getUpDoor().getNextRoom();}
-		if(currentRoom.heroHitDownDoor()){currentRoom = currentRoom.getDownDoor().getNextRoom();}
-		if(currentRoom.heroHitLeftDoor()){currentRoom = currentRoom.getLeftDoor().getNextRoom();}
-		if(currentRoom.heroHitRightDoor()){currentRoom = currentRoom.getRightDoor().getNextRoom();}
+		Vector2 newPosition = new Vector2(0.5,0.5);
+		if(currentRoom.heroHitUpDoor()){
+			currentRoom = currentRoom.getUpDoor().getNextRoom();
+			hero.setPosition(newPosition);
+		}
+		if(currentRoom.heroHitDownDoor()){
+			currentRoom = currentRoom.getDownDoor().getNextRoom();
+			hero.setPosition(newPosition);
+		}
+		if(currentRoom.heroHitLeftDoor()){
+			currentRoom = currentRoom.getLeftDoor().getNextRoom();
+			hero.setPosition(newPosition);
+			hero.setPosition(newPosition);
+		}
+		if(currentRoom.heroHitRightDoor()){
+			currentRoom = currentRoom.getRightDoor().getNextRoom();
+		}
 	}
 
 }
