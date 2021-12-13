@@ -5,7 +5,6 @@ import libraries.StdDraw;
 import libraries.Vector2;
 import resources.MonstersInfo;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 
 public class MonstersRoom extends Room {
@@ -50,6 +49,13 @@ public class MonstersRoom extends Room {
 	public void updateRoom(){
 		super.updateRoom();
 		updateMonster();
+		moveMonster();
+	}
+
+	public void moveMonster(){
+		for(Monster m : monster){
+			m.move();
+		}
 	}
 
 	public void drawMonster(){
@@ -62,6 +68,9 @@ public class MonstersRoom extends Room {
 		ArrayList<Monster> monsterToDelete = new ArrayList<>();
 		ArrayList<Larme> larmeToDelete = new ArrayList<>();
 		for(Monster m : monster){
+			if(m.hitHero(super.getHero().getPosition())){
+				super.getHero().setLife(super.getHero().getLife() - 1);
+			}
 			for(Larme l : super.getLarme()){
 				if(m.isHit(l)){
 					larmeToDelete.add(l);
@@ -73,6 +82,7 @@ public class MonstersRoom extends Room {
 		}
 		super.deleteLarme(larmeToDelete);
 		monster.removeAll(monsterToDelete);
+
 	}
 
 	public void monsterDead(){

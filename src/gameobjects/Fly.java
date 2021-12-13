@@ -6,12 +6,12 @@ import resources.ImagePaths;
 public class Fly extends Monster {
 
 	private String imagePath;
-	private double damage;
+	private int damage;
 	private double projectilDamage;
 	private double projectilSpeed;
 	private double projectilRange;
 	
-	public Fly(Vector2 position, Vector2 size, double speed, double life, double damage, double projectilRange, double projectilDamage, double projectilSpeed) {
+	public Fly(Vector2 position, Vector2 size, double speed, double life, int damage, double projectilRange, double projectilDamage, double projectilSpeed) {
 		super(position, size, speed, life);
 		this.imagePath = ImagePaths.FLY;
 		this.damage = damage;
@@ -28,11 +28,11 @@ public class Fly extends Monster {
 		this.imagePath = imagePath;
 	}
 
-	public double getDamage() {
+	public int getDamage() {
 		return damage;
 	}
 
-	public void setDamage(double damage) {
+	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 

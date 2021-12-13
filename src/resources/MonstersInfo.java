@@ -4,7 +4,7 @@ import libraries.Vector2;
 
 public class MonstersInfo {
     public static Vector2 SPIDER_SIZE = new Vector2(0.08, 0.05);
-    public static double SPIDER_SPEED = 0.01;
+    public static double SPIDER_SPEED = 0.02;
     public static int SPIDER_DAMAGE = 1;
     public static int SPIDER_LIFE = 5;
 

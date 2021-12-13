@@ -6,12 +6,12 @@ import resources.ImagePaths;
 public class Boss extends Monster{
 	
 	private String imagePath;
-	private double damage;
+	private int damage;
 	private double projectilDamage;
 	private double projectilSpeed;
 	private double projectilLength;
 
-	public Boss(Vector2 position, Vector2 size, double speed, double life, double projectilLength, double damage, double projectilDamage, double projectilSpeed) {
+	public Boss(Vector2 position, Vector2 size, double speed, double life, double projectilLength, int damage, double projectilDamage, double projectilSpeed) {
 		super(position, size, speed, life);
 		this.imagePath = ImagePaths.GAPER;
 		this.damage = damage;
@@ -28,11 +28,11 @@ public class Boss extends Monster{
 		this.imagePath = imagePath;
 	}
 
-	public double getDamage() {
+	public int getDamage() {
 		return damage;
 	}
 
-	public void setDamage(double damage) {
+	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 

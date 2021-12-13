@@ -206,4 +206,6 @@ public class Room
 	public void setDownDoor(Door downDoor){ this.downDoor = downDoor; }
 	public void setLeftDoor(Door leftDoor){ this.leftDoor = leftDoor; }
 	public void setRightDoor(Door rightDoor){ this.rightDoor = rightDoor; }
+
+	public Hero getHero(){ return hero; }
 }

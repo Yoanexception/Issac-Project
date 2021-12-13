@@ -8,12 +8,14 @@ public class Monster {
 	private Vector2 size;
 	private double speed;
 	private double life;
+	private Vector2 direction;
 	
 	public Monster(Vector2 position, Vector2 size, double speed, double life) {
 		this.position = position;
 		this.size = size;
 		this.speed = speed;
 		this.life = life;
+		this.direction = new Vector2();
 	}
 
 	public boolean isHit(Larme l){
@@ -28,6 +30,12 @@ public class Monster {
 		}
 		return false;
 	}
+
+	public boolean hitHero(Vector2 heroPosition){
+		return false;
+	}
+
+	public void move() {}
 
 	public boolean isDead () { return life == 0; }
 
@@ -67,5 +75,10 @@ public class Monster {
 		return "";
 	}
 
+	public Vector2 getDirection() { return direction; }
+
+	public void setDirection(Vector2 direction){ this.direction = direction; }
+
+	public int getDamage() { return 0; }
 
 }
