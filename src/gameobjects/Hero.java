@@ -32,7 +32,7 @@ public class Hero
 		this.life = HeroInfos.ISSAC_LIFE;
 		this.damageAttack = HeroInfos.ISSAC_DAMAGE_ATTACK;
 		this.speedAttack = 0;
-		this.gold = 0;
+		this.gold = 30;
 		this.lifeMax = HeroInfos.ISSAC_LIFE;
 	}
 
@@ -191,4 +191,8 @@ public class Hero
 	public int getGold() { return gold; }
 
 	public void setGold(int gold){ this.gold = gold; }
+
+	public void setDamageAttack(int damageAttack){ this.damageAttack = damageAttack; }
+
+	public int getDamageAttack() { return damageAttack; }
 }

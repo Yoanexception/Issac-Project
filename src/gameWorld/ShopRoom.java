@@ -23,7 +23,6 @@ public class ShopRoom extends Room{
 		ArrayList<Item> items = Items.getItems();
 		for(int i = 0; i < 3; i++){
 			int randomItems = (int) (Math.random() * items.size());
-			System.out.println(randomItems);
 			if(!item.contains(items.get(randomItems))){
 				Item newItem = items.get(randomItems);
 				item.add(newItem);
@@ -53,6 +52,39 @@ public class ShopRoom extends Room{
 				i--;
 			}
 		}
+	}
+
+	public void updateRoom(){
+		super.updateRoom();
+		itemTouch(super.getHero());
+	}
+
+	public void itemTouch(Hero h){
+		System.out.println("Je cherche");
+		ArrayList<Item> toRemove = new ArrayList<>();
+		for(Item i : item){
+			if(h.getPosition().getX() > i.getPosition().getX() - 0.075 / 2
+					&& h.getPosition().getX() < i.getPosition().getX() + 0.075 / 2
+					&& h.getPosition().getY() > i.getPosition().getY() - 0.075 / 2
+					&& h.getPosition().getY() < i.getPosition().getY() + 0.075 / 2
+					&& h.getGold() >= 15
+			){
+				h.setLifeMax(h.getLifeMax() + i.getAddLifeMax());
+				if(h.getLife() < h.getLife() - i.getHealLife()){
+					h.setLife(h.getLife() + i.getHealLife());
+				} else {
+					h.setLife(h.getLifeMax());
+				}
+				h.setDamageAttack(h.getDamageAttack() + i.getAddDamage());
+				if(i.isHeal()){
+					h.setLife(h.getLifeMax());
+				}
+
+				h.setGold(h.getGold() - 15);
+				toRemove.add(i);
+			}
+		}
+		item.removeAll(toRemove);
 	}
 
 
