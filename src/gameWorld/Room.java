@@ -41,7 +41,7 @@ public class Room
 
 	private void makeHeroPlay()
 	{
-		hero.updateGameObject();
+		hero.updateGameObject(larme);
 	}
 
 	private void makeLarmePlay() {
@@ -80,12 +80,12 @@ public class Room
 		drawDoor();
 		drawLarme();
 		hero.drawGameObject();
-		showLifeHero();
+		showUHDHero();
 	}
 
 	public void drawLarme(){
 		for(Larme l : larme){
-			StdDraw.picture(l.getPosition().getX(), l.getPosition().getY(), l.getImagePath(), 0.05,0.05);
+			StdDraw.picture(l.getPosition().getX(), l.getPosition().getY(), l.getImagePath(), 0.03,0.03);
 		}
 	}
 
@@ -110,9 +110,9 @@ public class Room
 		}
 	}
 
-	public void showLifeHero(){
+	public void showUHDHero(){
 		double x = 0.15;
-		for(int i = 0; i < HeroInfos.ISSAC_LIFE; i+= 2){
+		for(int i = 0; i < hero.getLifeMax(); i+= 2){
 			StdDraw.picture(x, 0.85,ImagePaths.EMPTY_HEART_HUD, 0.05, 0.05);
 			x += 0.05;
 		}
@@ -125,6 +125,9 @@ public class Room
 				StdDraw.picture(x, 0.85,ImagePaths.HALF_HEART_HUD, 0.05, 0.05);
 			}
 		}
+		StdDraw.picture(0.15, 0.80, ImagePaths.COIN);
+		StdDraw.text(0.205, 0.80, "" + hero.getGold());
+
 	}
 	
 	/**
@@ -193,7 +196,7 @@ public class Room
 	}
 	public ArrayList<Larme> getLarme() {return larme;}
 
-	public void deleteLarme(ArrayList<Larme> toDelete){
+	public static void deleteLarme(ArrayList<Larme> toDelete){
 		larme.removeAll(toDelete);
 	}
 

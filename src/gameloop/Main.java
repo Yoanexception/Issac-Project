@@ -23,6 +23,10 @@ public class Main
 		{
 			processNextStep(world);
 		}
+
+		StdDraw.clear();
+		StdDraw.picture(0.5,0.5, ImagePaths.LOSE_SCREEN,1,1);
+		StdDraw.show();
 	}
 
 	private static void processNextStep(GameWorld world)

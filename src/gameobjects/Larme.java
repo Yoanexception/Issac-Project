@@ -13,6 +13,7 @@ public class Larme {
     private String imagePath;
     private double range;
     private boolean dead;
+    private boolean shootByHero;
 
     public Larme(Vector2 position, int damage, Vector2 direction, double range){
         this.positionInitial = position;
@@ -23,6 +24,19 @@ public class Larme {
         this.imagePath = ImagePaths.TEAR;
         this.range = range;
         this.dead = false;
+        this.shootByHero = false;
+    }
+
+    public Larme(Vector2 position, int damage, Vector2 direction, double range, boolean shootByHero){
+        this.positionInitial = position;
+        this.position = position;
+        this.damage = damage;
+        this.speed = 0.03;
+        this.direction = direction;
+        this.imagePath = ImagePaths.TEAR;
+        this.range = range;
+        this.dead = false;
+        this.shootByHero = shootByHero;
     }
 
     public void updateGameObject()
@@ -57,4 +71,6 @@ public class Larme {
     public String getImagePath() { return this.imagePath; }
 
     public Boolean getDead() { return this.dead; }
+
+    public Boolean isShootByHero() { return this.shootByHero; }
 }

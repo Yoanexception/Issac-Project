@@ -49,12 +49,12 @@ public class MonstersRoom extends Room {
 	public void updateRoom(){
 		super.updateRoom();
 		updateMonster();
-		moveMonster();
+		moveMonster(super.getHero());
 	}
 
-	public void moveMonster(){
+	public void moveMonster(Hero h){
 		for(Monster m : monster){
-			m.move();
+			m.move(h);
 		}
 	}
 
@@ -68,8 +68,10 @@ public class MonstersRoom extends Room {
 		ArrayList<Monster> monsterToDelete = new ArrayList<>();
 		ArrayList<Larme> larmeToDelete = new ArrayList<>();
 		for(Monster m : monster){
-			if(m.hitHero(super.getHero().getPosition())){
+			m.setWait(m.getWait() > 0 ? m.getWait() - 1 : 0);
+			if(m.hitHero(super.getHero().getPosition()) && m.getWait() == 0){
 				super.getHero().setLife(super.getHero().getLife() - 1);
+				m.setWait(10);
 			}
 			for(Larme l : super.getLarme()){
 				if(m.isHit(l)){

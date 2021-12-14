@@ -5,6 +5,8 @@ import libraries.StdDraw;
 import libraries.Vector2;
 import resources.HeroInfos;
 
+import java.util.ArrayList;
+
 public class Hero
 {
 	
@@ -13,9 +15,11 @@ public class Hero
 	private String imagePath;
 	private double speed;
 	private Vector2 direction;
+	private int lifeMax;
 	private int life;
 	private double speedAttack;
 	private int damageAttack;
+	private int gold;
 	
 
 	public Hero(Vector2 position, Vector2 size, double speed, String imagePath)
@@ -28,11 +32,14 @@ public class Hero
 		this.life = HeroInfos.ISSAC_LIFE;
 		this.damageAttack = HeroInfos.ISSAC_DAMAGE_ATTACK;
 		this.speedAttack = 0;
+		this.gold = 0;
+		this.lifeMax = HeroInfos.ISSAC_LIFE;
 	}
 
-	public void updateGameObject()
+	public void updateGameObject(ArrayList<Larme> l)
 	{
 		move();
+		isHitByLarme(l);
 	}
 
 	private void move()
@@ -54,6 +61,23 @@ public class Hero
 				speedAttack = 0;
 			}
 		}
+	}
+
+	public void isHitByLarme(ArrayList<Larme> larmes){
+		ArrayList<Larme> toDelete = new ArrayList<>();
+		for (Larme l : larmes) {
+			if(
+					l.getPosition().getX() > position.getX() - size.getX() / 2
+							&& l.getPosition().getX() < position.getX() + size.getX() / 2
+							&& l.getPosition().getY() > position.getY() - size.getY() / 2
+							&& l.getPosition().getY() < position.getY() + size.getY() / 2
+					&& !l.isShootByHero()
+			){
+				toDelete.add(l);
+				life -= 1;
+			}
+		}
+		Room.deleteLarme(toDelete);
 	}
 
 	public void drawGameObject()
@@ -87,7 +111,7 @@ public class Hero
 
 	public void shoot(Vector2 direction) {
 		if(speedAttack == 0){
-			Larme l = new Larme(position, damageAttack, direction, HeroInfos.ISSAC_RANGE);
+			Larme l = new Larme(position, damageAttack, direction, HeroInfos.ISSAC_RANGE, true);
 			Room.addLarme(l);
 			speedAttack = HeroInfos.ISSAC_SPEED_ATTACK;
 		}
@@ -159,4 +183,12 @@ public class Hero
 	public void setLife(int life) { this.life = life;}
 
 	public int getLife() { return life; }
+
+	public int getLifeMax() { return lifeMax; }
+
+	public void setLifeMax(int lifeMax) { this.lifeMax = lifeMax; }
+
+	public int getGold() { return gold; }
+
+	public void setGold(int gold){ this.gold = gold; }
 }

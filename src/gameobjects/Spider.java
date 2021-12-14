@@ -22,7 +22,7 @@ public class Spider extends Monster {
 		super.setDirection(new Vector2(randomX, randomY));
 	}
 
-	public void move(){
+	public void move(Hero h){
 		if(timeWait > 0){
 			timeWait -= 1;
 		}
@@ -37,9 +37,9 @@ public class Spider extends Monster {
 				super.setPosition(positionAfterMoving);
 			}
 			movement += 1;
-			if(movement == 25){
+			if(movement == 15){
 				movement = 0;
-				timeWait = (int) (Math.random() * 50);
+				timeWait = (int) (5 + Math.random() * 55);
 				double randomX = (Math.random() * 2) - 1;
 				double randomY = (Math.random() * 2) - 1;
 				super.setDirection(new Vector2(randomX, randomY));

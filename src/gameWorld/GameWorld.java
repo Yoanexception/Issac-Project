@@ -15,10 +15,11 @@ public class GameWorld
 	public GameWorld(Hero hero)
 	{
 		this.hero = hero;
-		MonstersRoom monster2Room = new MonstersRoom(hero, null,null,null,null, 1);
-		Door monstersDoor = new Door(monster2Room, false);
-		MonstersRoom monsterRoom = new MonstersRoom(hero, null, monstersDoor, null, null, 1);
-		Door spawnDoor = new Door(monsterRoom, true);
+		//MonstersRoom monster2Room = new MonstersRoom(hero, null,null,null,null, 3);
+		//Door monstersDoor = new Door(monster2Room, false);
+		//MonstersRoom monsterRoom = new MonstersRoom(hero, null, monstersDoor, null, null, 1);
+		ShopRoom shop = new ShopRoom(hero, null, null, null, null);
+		Door spawnDoor = new Door(shop, true);
 		Spawn spawnRoom = new Spawn(hero, null, null, spawnDoor, null);
 		currentRoom = spawnRoom;
 	}
