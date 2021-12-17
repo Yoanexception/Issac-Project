@@ -1,10 +1,13 @@
 package gameWorld;
 
+import gameWorld.room.BossRoom;
+import gameWorld.room.MonstersRoom;
+import gameWorld.room.Room;
+import gameWorld.room.SpawnRoom;
 import gameobjects.Hero;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.Controls;
-import resources.ImagePaths;
 
 public class GameWorld
 {
@@ -18,9 +21,9 @@ public class GameWorld
 		//MonstersRoom monster2Room = new MonstersRoom(hero, null,null,null,null, 3);
 		//Door monstersDoor = new Door(monster2Room, false);
 		//MonstersRoom monsterRoom = new MonstersRoom(hero, null, monstersDoor, null, null, 1);
-		ShopRoom shop = new ShopRoom(hero, null, null, null, null);
+		MonstersRoom shop = new MonstersRoom(hero, null, null, null, null, 1);
 		Door spawnDoor = new Door(shop, true);
-		Spawn spawnRoom = new Spawn(hero, null, null, spawnDoor, null);
+		SpawnRoom spawnRoom = new SpawnRoom(hero, null, null, spawnDoor, null);
 		currentRoom = spawnRoom;
 	}
 
@@ -36,6 +39,10 @@ public class GameWorld
 		} else {
 			return false;
 		}
+	}
+
+	public boolean isBossDead(){
+		return currentRoom.isBossDead();
 	}
 
 	public void updateGameObjects()
@@ -81,6 +88,12 @@ public class GameWorld
 		}
 		if(StdDraw.isKeyPressed(Controls.shootRight)){
 			hero.shoot(new Vector2(1, 0));
+		}
+		if(StdDraw.isKeyPressed(Controls.giveCoin)){
+			hero.setGold(hero.getGold() + 10);
+		}
+		if(StdDraw.isKeyPressed(Controls.killMonster)){
+			currentRoom.killAllMonster();
 		}
 	}
 

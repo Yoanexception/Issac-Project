@@ -1,16 +1,19 @@
-package gameWorld;
+package gameWorld.room;
 
+import gameWorld.Door;
 import gameobjects.Hero;
 import gameobjects.Larme;
+import gameobjects.obstacles.Obstacles;
 import libraries.StdDraw;
 import libraries.Vector2;
-import resources.HeroInfos;
 import resources.ImagePaths;
 import resources.RoomInfos;
 
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * The type Room.
+ */
 public class Room
 {
 	private Hero hero;
@@ -20,6 +23,15 @@ public class Room
 	private Door downDoor;
 	private static ArrayList<Larme> larme = new ArrayList<Larme>();
 
+	/**
+	 * Instantiates a new Room.
+	 *
+	 * @param hero      the hero
+	 * @param leftDoor  the left door
+	 * @param rightDoor the right door
+	 * @param upDoor    the up door
+	 * @param downDoor  the down door
+	 */
 	public Room(Hero hero, Door leftDoor, Door rightDoor, Door upDoor, Door downDoor)
 	{
 		this.hero = hero;
@@ -34,28 +46,42 @@ public class Room
 	 */
 	public void updateRoom()
 	{
-		makeHeroPlay();
+		makeHeroPlay(new ArrayList<Obstacles>());
+		makeLarmePlay();
+	}
+
+	/**
+	 * Update room.
+	 *
+	 * @param o La liste des obsacles de la salle
+	 */
+	public void updateRoom(ArrayList<Obstacles> o)
+	{
+		makeHeroPlay(o);
 		makeLarmePlay();
 	}
 
 
-	private void makeHeroPlay()
+	private void makeHeroPlay(ArrayList<Obstacles> o)
 	{
-		hero.updateGameObject(larme);
+		hero.updateGameObject(larme, o);
 	}
 
+	/**
+	 * Met a jour les larmes.
+	 */
 	private void makeLarmePlay() {
-		ArrayList<Larme> toRemove = new ArrayList<Larme>();
+		ArrayList<Larme> toRemove = new ArrayList<>();
 		for(Larme l : larme){
 			l.updateGameObject();
-			if(l.getDead()){
+			if(l.getDead() || hitObstacles(l)){
 				toRemove.add(l);
 			}
 		}
 		larme.removeAll(toRemove);
 	}
 
-	/*
+	/**
 	 * Drawing
 	 */
 	public void drawRoom()
@@ -79,16 +105,28 @@ public class Room
 		}
 		drawDoor();
 		drawLarme();
+		drawObstacles();
 		hero.drawGameObject();
 		showUHDHero();
 	}
 
+	/**
+	 * Draw obstacles.
+	 */
+	public void drawObstacles() {}
+
+	/**
+	 * Draw larme.
+	 */
 	public void drawLarme(){
 		for(Larme l : larme){
-			StdDraw.picture(l.getPosition().getX(), l.getPosition().getY(), l.getImagePath(), 0.03,0.03);
+			StdDraw.picture(l.getPosition().getX(), l.getPosition().getY(), l.getImagePath(), l.getSize().getX(),l.getSize().getY());
 		}
 	}
 
+	/**
+	 * Draw door.
+	 */
 	public void drawDoor(){
 		String doorOpen = ImagePaths.OPENED_DOOR;
 		String doorClosed = ImagePaths.CLOSED_DOOR;
@@ -110,6 +148,9 @@ public class Room
 		}
 	}
 
+	/**
+	 * Show uhd hero.
+	 */
 	public void showUHDHero(){
 		double x = 0.15;
 		for(int i = 0; i < hero.getLifeMax(); i+= 2){
@@ -127,7 +168,6 @@ public class Room
 		}
 		StdDraw.picture(0.15, 0.80, ImagePaths.COIN);
 		StdDraw.text(0.205, 0.80, "" + hero.getGold());
-
 	}
 	
 	/**
@@ -143,6 +183,11 @@ public class Room
 				indexY * RoomInfos.TILE_HEIGHT + RoomInfos.HALF_TILE_SIZE.getY());
 	}
 
+	/**
+	 * Renvoie si le hero a toucher la porte du haut
+	 *
+	 * @return the boolean
+	 */
 	public boolean heroHitUpDoor() {
 		Vector2 positionUpDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, RoomInfos.NB_TILES - 1);
 		if (hero.getPosition().getY() > positionUpDoor.getY() - 0.06
@@ -155,6 +200,11 @@ public class Room
 		return false;
 	}
 
+	/**
+	 * Renvoie si le hero a toucher la porte du bas
+	 *
+	 * @return the boolean
+	 */
 	public boolean heroHitDownDoor() {
 		Vector2 positionDownDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, 0);
 		if (hero.getPosition().getY() < positionDownDoor.getY() + 0.085
@@ -167,6 +217,11 @@ public class Room
 		return false;
 	}
 
+	/**
+	 * Renvoie si le hero a toucher la porte de gauche
+	 *
+	 * @return the boolean
+	 */
 	public boolean heroHitLeftDoor() {
 		Vector2 positionLeftDoor = positionFromTileIndex(0, RoomInfos.NB_TILES / 2);
 		if (hero.getPosition().getY() < positionLeftDoor.getY() + 0.04
@@ -179,6 +234,11 @@ public class Room
 		return false;
 	}
 
+	/**
+	 * Renvoie si le hero a toucher la porte de droite
+	 *
+	 * @return the boolean
+	 */
 	public boolean heroHitRightDoor() {
 		Vector2 positionRightDoor = positionFromTileIndex(RoomInfos.NB_TILES - 1, RoomInfos.NB_TILES / 2);
 		if (hero.getPosition().getY() < positionRightDoor.getY() + 0.04
@@ -191,24 +251,112 @@ public class Room
 		return false;
 	}
 
+	/**
+	 * Add larme.
+	 *
+	 * @param l the l
+	 */
 	public static void addLarme(Larme l){
 		larme.add(l);
 	}
+
+	/**
+	 * Gets larme.
+	 *
+	 * @return the larme
+	 */
 	public ArrayList<Larme> getLarme() {return larme;}
 
+	/**
+	 * Delete larme.
+	 *
+	 * @param toDelete the to delete
+	 */
 	public static void deleteLarme(ArrayList<Larme> toDelete){
 		larme.removeAll(toDelete);
 	}
 
+	/**
+	 * Get up door door.
+	 *
+	 * @return the door
+	 */
 	public Door getUpDoor(){ return upDoor; }
+
+	/**
+	 * Get down door door.
+	 *
+	 * @return the door
+	 */
 	public Door getDownDoor(){ return downDoor; }
+
+	/**
+	 * Get left door door.
+	 *
+	 * @return the door
+	 */
 	public Door getLeftDoor(){ return leftDoor; }
+
+	/**
+	 * Get right door door.
+	 *
+	 * @return the door
+	 */
 	public Door getRightDoor(){ return rightDoor; }
 
+	/**
+	 * Set up door.
+	 *
+	 * @param upDoor the up door
+	 */
 	public void setUpDoor(Door upDoor){ this.upDoor = upDoor; }
+
+	/**
+	 * Set down door.
+	 *
+	 * @param downDoor the down door
+	 */
 	public void setDownDoor(Door downDoor){ this.downDoor = downDoor; }
+
+	/**
+	 * Set left door.
+	 *
+	 * @param leftDoor the left door
+	 */
 	public void setLeftDoor(Door leftDoor){ this.leftDoor = leftDoor; }
+
+	/**
+	 * Set right door.
+	 *
+	 * @param rightDoor the right door
+	 */
 	public void setRightDoor(Door rightDoor){ this.rightDoor = rightDoor; }
 
+	/**
+	 * Get hero hero.
+	 *
+	 * @return the hero
+	 */
 	public Hero getHero(){ return hero; }
+
+	/**
+	 * Hit obstacles boolean.
+	 *
+	 * @param l the l
+	 * @return the boolean
+	 */
+//For Larme
+	public boolean hitObstacles(Larme l){ return false; }
+
+	/**
+	 * Kill all monster.
+	 */
+	public void killAllMonster(){}
+
+	/**
+	 * Is boss dead boolean.
+	 *
+	 * @return the boolean
+	 */
+	public boolean isBossDead() { return false; }
 }

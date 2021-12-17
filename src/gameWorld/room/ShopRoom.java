@@ -1,24 +1,40 @@
-package gameWorld;
+package gameWorld.room;
 
+import gameWorld.Door;
 import gameobjects.Hero;
-import gameobjects.Item;
+import gameobjects.items.Item;
+import libraries.Physics;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.Items;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 
-public class ShopRoom extends Room{
+/**
+ * The type Shop room.
+ */
+public class ShopRoom extends Room {
 	
 	private ArrayList<Item> item;
 
+	/**
+	 * Instantiates a new Shop room.
+	 *
+	 * @param hero      the hero
+	 * @param leftRoom  the left room
+	 * @param rightRoom the right room
+	 * @param upRoom    the up room
+	 * @param downRoom  the down room
+	 */
 	public ShopRoom(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom) {
 		super(hero, leftRoom, rightRoom, upRoom, downRoom);
 		this.item = new ArrayList<>();
 		generateItem();
 	}
-	
+
+	/**
+	 * Permet de generer les items a vendre de la salle.
+	 */
 	public void generateItem() {
 		ArrayList<Item> items = Items.getItems();
 		for(int i = 0; i < 3; i++){
@@ -28,24 +44,21 @@ public class ShopRoom extends Room{
 				item.add(newItem);
 				Vector2 position = new Vector2();
 				switch (i) {
-					case 0 : {
+					case 0 -> {
 						double x = 0.3;
 						double y = 0.5;
-						position = new Vector2(x,y);
+						position = new Vector2(x, y);
 					}
-					break;
-					case 1 : {
+					case 1 -> {
 						double x = 0.7;
 						double y = 0.5;
-						position = new Vector2(x,y);
+						position = new Vector2(x, y);
 					}
-					break;
-					case 2 : {
+					case 2 -> {
 						double x = 0.5;
 						double y = 0.7;
-						position = new Vector2(x,y);
+						position = new Vector2(x, y);
 					}
-					break;
 				}
 				item.get(i).setPosition(position);
 			} else {
@@ -59,15 +72,15 @@ public class ShopRoom extends Room{
 		itemTouch(super.getHero());
 	}
 
+	/**
+	 * Regarde si le hero à toucher un item et lui ajoute les differentes caractéristique de l'item.
+	 *
+	 * @param h Le hero
+	 */
 	public void itemTouch(Hero h){
-		System.out.println("Je cherche");
 		ArrayList<Item> toRemove = new ArrayList<>();
 		for(Item i : item){
-			if(h.getPosition().getX() > i.getPosition().getX() - 0.075 / 2
-					&& h.getPosition().getX() < i.getPosition().getX() + 0.075 / 2
-					&& h.getPosition().getY() > i.getPosition().getY() - 0.075 / 2
-					&& h.getPosition().getY() < i.getPosition().getY() + 0.075 / 2
-					&& h.getGold() >= 15
+			if(Physics.rectangleCollision(h.getPosition(), h.getSize(), i.getPosition(), i.getSize()) && h.getGold() >= 15
 			){
 				h.setLifeMax(h.getLifeMax() + i.getAddLifeMax());
 				if(h.getLife() < h.getLife() - i.getHealLife()){
@@ -79,6 +92,7 @@ public class ShopRoom extends Room{
 				if(i.isHeal()){
 					h.setLife(h.getLifeMax());
 				}
+				h.setSpeed(h.getSpeed() + i.getAddSpeed());
 
 				h.setGold(h.getGold() - 15);
 				toRemove.add(i);
@@ -91,7 +105,7 @@ public class ShopRoom extends Room{
 	public void drawRoom(){
 		super.drawRoom();
 		for(Item i : item){
-			StdDraw.picture(i.getPosition().getX(), i.getPosition().getY(), i.getImagePath(), 0.075,0.075);
+			StdDraw.picture(i.getPosition().getX(), i.getPosition().getY(), i.getImagePath(), i.getSize().getX(),i.getSize().getY());
 		}
 	}
 

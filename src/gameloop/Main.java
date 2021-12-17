@@ -18,15 +18,25 @@ public class Main
 		GameWorld world = new GameWorld(isaac);				
 		initializeDisplay();
 
+		boolean bossDead = false;
 		// Main loop of the game
-		while (!world.gameOver())
+		while (!world.gameOver() && !bossDead)
 		{
 			processNextStep(world);
+			bossDead = world.isBossDead();
 		}
 
-		StdDraw.clear();
-		StdDraw.picture(0.5,0.5, ImagePaths.LOSE_SCREEN,1,1);
-		StdDraw.show();
+		if(bossDead){
+			StdDraw.clear();
+			StdDraw.picture(0.5,0.5, ImagePaths.WIN_SCREEN,1,1);
+			StdDraw.show();
+		} else {
+			StdDraw.clear();
+			StdDraw.picture(0.5,0.5, ImagePaths.LOSE_SCREEN,1,1);
+			StdDraw.show();
+		}
+
+
 	}
 
 	private static void processNextStep(GameWorld world)

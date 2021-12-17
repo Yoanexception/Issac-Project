@@ -9,6 +9,9 @@ public class Controls
 	public static int goRight = Keybinding.keycodeOf('d');
 	public static int goLeft = Keybinding.keycodeOf('q');
 
+	public static int giveCoin = Keybinding.keycodeOf('o');
+	public static int killMonster = Keybinding.keycodeOf('k');
+
 	public static int shootUp = Keybinding.keycodeOf(Keybinding.SpecialKeys.UP);
 	public static int shootDown = Keybinding.keycodeOf(Keybinding.SpecialKeys.DOWN);
 	public static int shootLeft = Keybinding.keycodeOf(Keybinding.SpecialKeys.LEFT);

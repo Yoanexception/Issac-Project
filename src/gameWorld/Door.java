@@ -1,5 +1,7 @@
 package gameWorld;
 
+import gameWorld.room.Room;
+
 /**
  * The type Door.
  */

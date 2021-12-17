@@ -1,11 +1,18 @@
-package gameobjects;
+package gameobjects.monsters;
 
-import gameWorld.Room;
+import gameWorld.room.Room;
+import gameobjects.Hero;
+import gameobjects.Larme;
+import gameobjects.obstacles.Obstacles;
 import libraries.Vector2;
-import resources.HeroInfos;
 import resources.ImagePaths;
 import resources.MonstersInfo;
 
+import java.util.ArrayList;
+
+/**
+ * The type Fly.
+ */
 public class Fly extends Monster {
 
 	private String imagePath;
@@ -15,7 +22,19 @@ public class Fly extends Monster {
 	private double projectilRange;
 	private int projecilWait;
 	private Vector2 direction;
-	
+
+	/**
+	 * Instantiates a new Fly.
+	 *
+	 * @param position        the position
+	 * @param size            the size
+	 * @param speed           the speed
+	 * @param life            the life
+	 * @param damage          the damage
+	 * @param projectilRange  the projectil range
+	 * @param projectilDamage the projectil damage
+	 * @param projectilSpeed  the projectil speed
+	 */
 	public Fly(Vector2 position, Vector2 size, double speed, double life, int damage, double projectilRange, int projectilDamage, double projectilSpeed) {
 		super(position, size, speed, life);
 		this.imagePath = ImagePaths.FLY;
@@ -27,7 +46,7 @@ public class Fly extends Monster {
 		this.direction = new Vector2();
 	}
 
-	public void move(Hero h){
+	public void move(Hero h, ArrayList<Obstacles> obstacles){
 		shoot(h);
 		projecilWait -= 1;
 		double xmax = 0.8900000000000003;
@@ -45,6 +64,11 @@ public class Fly extends Monster {
 		}
 	}
 
+	/**
+	 * Permet de faire tirer la mouche
+	 *
+	 * @param h Le hero
+	 */
 	public void shoot(Hero h){
 		if(projecilWait == 0){
 			Vector2 positionHero = h.getPosition();
@@ -57,12 +81,15 @@ public class Fly extends Monster {
 		}
 	}
 
-	//TODO FUNCTION OF SHOOT
-
 	public String getImagePath() {
 		return imagePath;
 	}
 
+	/**
+	 * Sets image path.
+	 *
+	 * @param imagePath the image path
+	 */
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
@@ -71,34 +98,74 @@ public class Fly extends Monster {
 		return damage;
 	}
 
+	/**
+	 * Sets damage.
+	 *
+	 * @param damage the damage
+	 */
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
 
+	/**
+	 * Gets projectil damage.
+	 *
+	 * @return the projectil damage
+	 */
 	public int getProjectilDamage() {
 		return projectilDamage;
 	}
 
+	/**
+	 * Sets projectil damage.
+	 *
+	 * @param projectilDamage the projectil damage
+	 */
 	public void setProjectilDamage(int projectilDamage) {
 		this.projectilDamage = projectilDamage;
 	}
 
+	/**
+	 * Gets projectil speed.
+	 *
+	 * @return the projectil speed
+	 */
 	public double getProjectilSpeed() {
 		return projectilSpeed;
 	}
 
+	/**
+	 * Sets projectil speed.
+	 *
+	 * @param projectilSpeed the projectil speed
+	 */
 	public void setProjectilSpeed(double projectilSpeed) {
 		this.projectilSpeed = projectilSpeed;
 	}
 
+	/**
+	 * Gets projectil range.
+	 *
+	 * @return the projectil range
+	 */
 	public double getProjectilRange() {
 		return projectilRange;
 	}
 
+	/**
+	 * Sets projectil range.
+	 *
+	 * @param projectilRange the projectil range
+	 */
 	public void setProjectilRange(double projectilRange) {
 		this.projectilRange = projectilRange;
 	}
 
+	/**
+	 * Gets normalized direction.
+	 *
+	 * @return the normalized direction
+	 */
 	public Vector2 getNormalizedDirection()
 	{
 		Vector2 normalizedVector = new Vector2(super.getDirection());
