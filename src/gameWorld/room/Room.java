@@ -193,9 +193,7 @@ public class Room
 		if (hero.getPosition().getY() > positionUpDoor.getY() - 0.06
 				&& hero.getPosition().getX() > positionUpDoor.getX() - 0.04
 				&& hero.getPosition().getX() < positionUpDoor.getX() + 0.04) {
-			if (upDoor != null && upDoor.isOpen()) {
-				return true;
-			}
+			return upDoor != null && upDoor.isOpen();
 		}
 		return false;
 	}
@@ -210,9 +208,7 @@ public class Room
 		if (hero.getPosition().getY() < positionDownDoor.getY() + 0.085
 				&& hero.getPosition().getX() > positionDownDoor.getX() - 0.04
 				&& hero.getPosition().getX() < positionDownDoor.getX() + 0.04) {
-			if (downDoor != null && downDoor.isOpen()) {
-				return true;
-			}
+			return downDoor != null && downDoor.isOpen();
 		}
 		return false;
 	}
@@ -226,10 +222,8 @@ public class Room
 		Vector2 positionLeftDoor = positionFromTileIndex(0, RoomInfos.NB_TILES / 2);
 		if (hero.getPosition().getY() < positionLeftDoor.getY() + 0.04
 				&& hero.getPosition().getY() > positionLeftDoor.getY() - 0.04
-				&& hero.getPosition().getX() < positionLeftDoor.getX()  - 0.06) {
-			if (leftDoor != null && leftDoor.isOpen()) {
-				return true;
-			}
+				&& hero.getPosition().getX() < positionLeftDoor.getX() + 0.085) {
+			return leftDoor != null && leftDoor.isOpen();
 		}
 		return false;
 	}
@@ -244,9 +238,7 @@ public class Room
 		if (hero.getPosition().getY() < positionRightDoor.getY() + 0.04
 				&& hero.getPosition().getY() > positionRightDoor.getY() - 0.04
 				&& hero.getPosition().getX() > positionRightDoor.getX()  - 0.085) {
-			if (rightDoor != null && rightDoor.isOpen()) {
-				return true;
-			}
+			return rightDoor != null && rightDoor.isOpen();
 		}
 		return false;
 	}

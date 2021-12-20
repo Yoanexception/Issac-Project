@@ -24,7 +24,7 @@ import java.util.Random;
 /**
  * The type Monsters room.
  */
-public class MonstersRoom extends Room {
+public class MonsterRoom extends Room {
 	
 	private ArrayList<Monster> monster;
 	private ArrayList<Obstacles> obstacles;
@@ -43,7 +43,7 @@ public class MonstersRoom extends Room {
 	 * @param downRoom  the down room
 	 * @param nbMonster the nb monster
 	 */
-	public MonstersRoom(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom, int nbMonster) {
+	public MonsterRoom(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom, int nbMonster) {
 		super(hero, leftRoom, rightRoom, upRoom, downRoom);
 		this.monster = new ArrayList<>();
 		this.obstacles = new ArrayList<>();

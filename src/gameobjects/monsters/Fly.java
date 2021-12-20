@@ -42,7 +42,8 @@ public class Fly extends Monster {
 		this.projectilDamage = projectilDamage;
 		this.projectilRange = projectilRange;
 		this.projectilSpeed = projectilSpeed;
-		this.projecilWait = 20;
+		int wait = (int) (30 +  Math.random() * 40);
+		this.projecilWait = wait;
 		this.direction = new Vector2();
 	}
 
