@@ -7,18 +7,21 @@ public class Floor {
 
     private Hero hero;
     private Room currentRoom;
+    private Floor previousFloor;
     private Floor nextFloor;
 
     public Floor(Hero hero, Room currentRoom){
         this.hero = hero;
         this.currentRoom = currentRoom;
         this.nextFloor = null;
+        this.previousFloor = null;
     }
 
-    public Floor(Hero hero, Room currentRoom, Floor nextFloor){
+    public Floor(Hero hero, Room currentRoom, Floor nextFloor, Floor previousFloor){
         this.hero = hero;
         this.currentRoom = currentRoom;
         this.nextFloor = nextFloor;
+        this.previousFloor = previousFloor;
     }
 
     public Hero getHero() {
@@ -43,5 +46,13 @@ public class Floor {
 
     public void setNextFloor(Floor nextFloor) {
         this.nextFloor = nextFloor;
+    }
+
+    public Floor getPreviousFloor() {
+        return previousFloor;
+    }
+
+    public void setPreviousFloor(Floor previousFloor) {
+        this.previousFloor = previousFloor;
     }
 }

@@ -15,18 +15,18 @@ public class Main
 	{
 		// Hero, world and display initialisation.
 		Hero isaac = new Hero(RoomInfos.POSITION_CENTER_OF_ROOM, HeroInfos.ISAAC_SIZE, HeroInfos.ISAAC_SPEED, ImagePaths.ISAAC);
-		GameWorld world = new GameWorld(isaac);				
+		GameWorld world = new GameWorld(isaac, 3);
 		initializeDisplay();
 
-		boolean bossDead = false;
+		boolean gameWin = false;
 		// Main loop of the game
-		while (!world.gameOver() && !bossDead)
+		while (!world.gameOver() && !gameWin)
 		{
 			processNextStep(world);
-			bossDead = world.isBossDead();
+			gameWin = world.isGameWin();
 		}
 
-		if(bossDead){
+		if(gameWin){
 			StdDraw.clear();
 			StdDraw.picture(0.5,0.5, ImagePaths.WIN_SCREEN,1,1);
 			StdDraw.show();

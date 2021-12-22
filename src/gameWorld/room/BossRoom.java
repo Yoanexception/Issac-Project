@@ -93,7 +93,22 @@ public class BossRoom extends Room {
 	}
 
 	public boolean isBossDead(){
-		return boss.getLife() < 0;
+		if(boss.getLife() < 0){
+			if (super.getUpDoor() != null) {
+				super.getUpDoor().setOpen(true);
+			}
+			if (super.getDownDoor() != null) {
+				super.getDownDoor().setOpen(true);
+			}
+			if (super.getLeftDoor() != null) {
+				super.getLeftDoor().setOpen(true);
+			}
+			if (super.getRightDoor() != null) {
+				super.getRightDoor().setOpen(true);
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	
