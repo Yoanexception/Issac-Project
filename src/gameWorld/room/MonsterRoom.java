@@ -59,10 +59,8 @@ public class MonsterRoom extends Room {
 		int nbObstacles = (int) (1 + Math.random() * 4);
 		for(int i = 0; i < nbObstacles; i++){
 			int type = (int) (Math.random() * 2);
-			System.out.println(RoomInfos.TILE_SIZE.getX() * 2 + " - " + (1 - RoomInfos.TILE_SIZE.getX() * 4 + RoomInfos.TILE_SIZE.getX() * 2));
 			double x = RoomInfos.TILE_SIZE.getX() * 2 + (Math.random() * (1 - RoomInfos.TILE_SIZE.getX() * 4));
 			double y = RoomInfos.TILE_SIZE.getY() * 2 + (Math.random() * (1 - RoomInfos.TILE_SIZE.getY() * 4));
-			System.out.println("position : " + x + " - " + y);
 			Vector2 position = new Vector2(x,y);
 			if(isOnObstacle(position, ObstaclesInfo.SIZE_ROCK)){
 				break;
