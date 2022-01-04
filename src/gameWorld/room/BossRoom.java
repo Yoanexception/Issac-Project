@@ -102,7 +102,7 @@ public class BossRoom extends Room {
 
 	public boolean isBossDead(){
 		if(boss.getLife() == 0){
-			StdDraw.picture(positionHole.getX(), positionHole.getY(), ImagePaths.HOLE_NEGATIVE, sizeHole.getX(), sizeHole.getY());
+			StdDraw.picture(positionHole.getX(), positionHole.getY(), ImagePaths.HOLE, sizeHole.getX(), sizeHole.getY());
 			return true;
 		}
 		return false;
