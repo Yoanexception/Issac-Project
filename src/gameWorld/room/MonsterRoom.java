@@ -65,7 +65,7 @@ public class MonsterRoom extends Room {
 			if(isOnObstacle(position, ObstaclesInfo.SIZE_ROCK)){
 				break;
 			}
-			if(x < 0.60 && x > 0.40 && y < 0.60 && y > 0.40){
+			if(x < 0.53 + ObstaclesInfo.SIZE_ROCK.getX() / 2 && x > 0.47 - ObstaclesInfo.SIZE_ROCK.getX() / 2 && y < 0.53 + ObstaclesInfo.SIZE_ROCK.getY() / 2 && y > 0.47 - ObstaclesInfo.SIZE_ROCK.getY() / 2){
 				break;
 			}
 			if(type == 0){
@@ -291,38 +291,23 @@ public class MonsterRoom extends Room {
 				super.getRightDoor().setOpen(true);
 			}
 
-			if (!generateItem) {
-				/**
-				 * Generate Coin
-				 */
-				double randomCoin = Math.random();
-				if (randomCoin >= 0.3) {
-					int randomNbCoin = (int) (1 + Math.random() * 2);
-					for (int i = 0; i < randomNbCoin; i++) {
-						double x = 0.2 + Math.random() * 0.6;
-						double y = 0.2 + Math.random() * 0.6;
-						Vector2 position = new Vector2(x, y);
-						if(isOnObstacle(position, Items.sizeItems)){
-							while (isOnObstacle(position, Items.sizeItems)){
-								x = 0.2 + Math.random() * 0.6;
-								y = 0.2 + Math.random() * 0.6;
-								position = new Vector2(x, y);
-							}
-						}
-						double type = Math.random();
-						Coin newCoin = new Coin(position, 1, "");
-						if (type < 0.7) {
-							newCoin = new Coin(position, 1, ImagePaths.COIN);
-						} else if (type < 0.9) {
-							newCoin = new Coin(position, 5, ImagePaths.NICKEL);
-						} else {
-							newCoin = new Coin(position, 10, ImagePaths.DIME);
-						}
-						coin.add(newCoin);
-					}
-				}
-				double randomHeart = Math.random();
-				if (randomHeart >= 0.5) {
+			generateItem();
+
+		}
+	}
+
+	/**
+	 * Cette fonction genere les items avec une certaine probabilité
+	 */
+	private void generateItem(){
+		if (!generateItem) {
+			/**
+			 * Generate Coin
+			 */
+			double randomCoin = Math.random();
+			if (randomCoin >= 0.4) {
+				int randomNbCoin = (int) (1 + Math.random() * 2);
+				for (int i = 0; i < randomNbCoin; i++) {
 					double x = 0.2 + Math.random() * 0.6;
 					double y = 0.2 + Math.random() * 0.6;
 					Vector2 position = new Vector2(x, y);
@@ -334,34 +319,56 @@ public class MonsterRoom extends Room {
 						}
 					}
 					double type = Math.random();
-					if (type > 0.3) {
-						HalfHeart newHeart = new HalfHeart(position);
-						hearts.add(newHeart);
+					Coin newCoin = new Coin(position, 1, "");
+					if (type < 0.7) {
+						newCoin = new Coin(position, 1, ImagePaths.COIN);
+					} else if (type < 0.9) {
+						newCoin = new Coin(position, 5, ImagePaths.NICKEL);
 					} else {
-						Heart newHeart = new Heart(position);
-						hearts.add(newHeart);
+						newCoin = new Coin(position, 10, ImagePaths.DIME);
 					}
+					coin.add(newCoin);
 				}
-				double randomPassif = Math.random();
-				if(randomPassif >= 0.8){
-					ArrayList<Item> list = Items.getItems();
-					double x = 0.2 + Math.random() * 0.6;
-					double y = 0.2 + Math.random() * 0.6;
-					Vector2 position = new Vector2(x, y);
-					if(isOnObstacle(position, Items.sizeItems)){
-						while (isOnObstacle(position, Items.sizeItems)){
-							x = 0.2 + Math.random() * 0.6;
-							y = 0.2 + Math.random() * 0.6;
-							position = new Vector2(x, y);
-						}
-					}
-					int randomItems = (int) (Math.random() * list.size());
-					passif = list.get(randomItems);
-					passif.setPosition(position);
-				}
-				generateItem = true;
-
 			}
+			double randomHeart = Math.random();
+			if (randomHeart >= 0.7) {
+				double x = 0.2 + Math.random() * 0.6;
+				double y = 0.2 + Math.random() * 0.6;
+				Vector2 position = new Vector2(x, y);
+				if(isOnObstacle(position, Items.sizeItems)){
+					while (isOnObstacle(position, Items.sizeItems)){
+						x = 0.2 + Math.random() * 0.6;
+						y = 0.2 + Math.random() * 0.6;
+						position = new Vector2(x, y);
+					}
+				}
+				double type = Math.random();
+				if (type > 0.3) {
+					HalfHeart newHeart = new HalfHeart(position);
+					hearts.add(newHeart);
+				} else {
+					Heart newHeart = new Heart(position);
+					hearts.add(newHeart);
+				}
+			}
+			double randomPassif = Math.random();
+			if(randomPassif >= 0.85){
+				ArrayList<Item> list = Items.getItems();
+				double x = 0.2 + Math.random() * 0.6;
+				double y = 0.2 + Math.random() * 0.6;
+				Vector2 position = new Vector2(x, y);
+				if(isOnObstacle(position, Items.sizeItems)){
+					while (isOnObstacle(position, Items.sizeItems)){
+						x = 0.2 + Math.random() * 0.6;
+						y = 0.2 + Math.random() * 0.6;
+						position = new Vector2(x, y);
+					}
+				}
+				int randomItems = (int) (Math.random() * list.size());
+				passif = list.get(randomItems);
+				passif.setPosition(position);
+			}
+			generateItem = true;
 		}
 	}
 

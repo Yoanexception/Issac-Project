@@ -21,7 +21,7 @@ public class WorldGenerator {
         ArrayList<MonsterRoom> monstersRoom = new ArrayList<>();
         for(int i = 0; i < nbMonstersRoom; i++){
             int nbMonsters = (int) (1 + Math.random() * 4);
-            MonsterRoom monsterRoom = new MonsterRoom(hero, null, null,null,null, nbMonsters);
+            MonsterRoom monsterRoom = new MonsterRoom(hero, null, null,null,null, 0);
             monstersRoom.add(monsterRoom);
         }
         Room[][] map = new Room[5][5];

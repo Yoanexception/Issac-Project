@@ -1,13 +1,13 @@
 package gameWorld.room;
 
 import gameWorld.Door;
-import gameobjects.Boss;
+import gameobjects.boss.Boss;
 import gameobjects.Hero;
 import gameobjects.Larme;
-import gameobjects.monsters.Monster;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.ImagePaths;
+import resources.RoomInfos;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class BossRoom extends Room {
 	public void generateBoss() {
 		String imagePath = ImagePaths.BOOS_STEVEN;
 		Vector2 position = new Vector2(0.5, 0.8);
-		Vector2 size = new Vector2(0.06,0.06);
+		Vector2 size = RoomInfos.TILE_SIZE.scalarMultiplication(2);
 		double speed = 0.001;
 		int life = 10;
 		double projectilLenght = 0.4;
@@ -89,7 +89,7 @@ public class BossRoom extends Room {
 	 * Draw boss.
 	 */
 	public void drawBoss(){
-		StdDraw.picture(boss.getPosition().getX(), boss.getPosition().getY(), boss.getImagePath());
+		StdDraw.picture(boss.getPosition().getX(), boss.getPosition().getY(), boss.getImagePath(), boss.getSize().getX(), boss.getSize().getY());
 	}
 
 	public boolean isBossDead(){
