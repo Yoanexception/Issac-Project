@@ -20,7 +20,6 @@ public class SpawnRoom extends Room {
 	 */
 	public SpawnRoom(Hero hero, Door leftRoom, Door rightRoom, Door upRoom, Door downRoom) {
 		super(hero, leftRoom, rightRoom, upRoom, downRoom);
-		// TODO Auto-generated constructor stub
 	}
 
 }

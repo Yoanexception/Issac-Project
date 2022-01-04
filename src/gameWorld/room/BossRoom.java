@@ -98,7 +98,7 @@ public class BossRoom extends Room {
 	}
 
 	private final Vector2 positionHole = new Vector2(0.5,0.5);
-	private final Vector2 sizeHole = new Vector2(0.15,0.15);
+	private final Vector2 sizeHole = new Vector2(0.2,0.2);
 
 	public boolean isBossDead(){
 		if(boss.getLife() == 0){

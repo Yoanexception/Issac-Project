@@ -126,24 +126,46 @@ public class Room
 	 * Draw door.
 	 */
 	public void drawDoor(){
-		String doorOpen = ImagePaths.OPENED_DOOR;
-		String doorClosed = ImagePaths.CLOSED_DOOR;
 		if(downDoor != null) {
 			Vector2 positionDownDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, 0);
-			StdDraw.picture(positionDownDoor.getX(), positionDownDoor.getY(),  downDoor.isOpen() ? doorOpen : doorClosed);
+			String doorOpen = getOpenDoorPath(downDoor);
+			String doorClosed = getClosedDoorPath(downDoor);
+			StdDraw.picture(positionDownDoor.getX(), positionDownDoor.getY(),  downDoor.isOpen() ? doorOpen : doorClosed, 180);
 		}
 		if(upDoor != null) {
+			String doorOpen = getOpenDoorPath(upDoor);
+			String doorClosed = getClosedDoorPath(upDoor);
 			Vector2 positionUpDoor = positionFromTileIndex(RoomInfos.NB_TILES / 2, RoomInfos.NB_TILES - 1);
 			StdDraw.picture(positionUpDoor.getX(), positionUpDoor.getY(), upDoor.isOpen() ? doorOpen : doorClosed);
 		}
 		if(leftDoor != null) {
+			String doorOpen = getOpenDoorPath(leftDoor);
+			String doorClosed = getClosedDoorPath(leftDoor);
 			Vector2 positionLeftDoor = positionFromTileIndex(0, RoomInfos.NB_TILES / 2);
-			StdDraw.picture(positionLeftDoor.getX(), positionLeftDoor.getY(), leftDoor.isOpen() ? doorOpen : doorClosed);
+			StdDraw.picture(positionLeftDoor.getX(), positionLeftDoor.getY(), leftDoor.isOpen() ? doorOpen : doorClosed, 90);
 		}
 		if(rightDoor != null) {
+			String doorOpen = getOpenDoorPath(rightDoor);
+			String doorClosed = getClosedDoorPath(rightDoor);
 			Vector2 positionRightDoor = positionFromTileIndex(RoomInfos.NB_TILES - 1, RoomInfos.NB_TILES / 2);
-			StdDraw.picture(positionRightDoor.getX(), positionRightDoor.getY(), rightDoor.isOpen() ? doorOpen : doorClosed);
+			StdDraw.picture(positionRightDoor.getX(), positionRightDoor.getY(), rightDoor.isOpen() ? doorOpen : doorClosed, 270);
 		}
+	}
+
+	private String getOpenDoorPath(Door d) {
+		return switch (d.getType()){
+			case 1 -> ImagePaths.SHOP_OPENED_DOOR;
+			case 2 -> ImagePaths.BOSS_OPENED_DOOR;
+			default -> ImagePaths.OPENED_DOOR;
+		};
+	}
+
+	private String getClosedDoorPath(Door d) {
+		return switch (d.getType()){
+			case 1 -> ImagePaths.SHOP_ClOSED_DOOR;
+			case 2 -> ImagePaths.BOSS_ClOSED_DOOR;
+			default -> ImagePaths.CLOSED_DOOR;
+		};
 	}
 
 	/**
@@ -165,6 +187,7 @@ public class Room
 			}
 		}
 		StdDraw.picture(0.15, 0.80, ImagePaths.COIN);
+		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.text(0.205, 0.80, "" + hero.getGold());
 	}
 	
