@@ -4,6 +4,8 @@ import gameWorld.Door;
 import gameobjects.boss.Boss;
 import gameobjects.Hero;
 import gameobjects.Larme;
+import gameobjects.boss.Steven;
+import libraries.Physics;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.ImagePaths;
@@ -41,12 +43,12 @@ public class BossRoom extends Room {
 		Vector2 position = new Vector2(0.5, 0.8);
 		Vector2 size = RoomInfos.TILE_SIZE.scalarMultiplication(2);
 		double speed = 0.001;
-		int life = 10;
+		int life = 2;
 		double projectilLenght = 0.4;
 		int damage = 1;
 		int projectilDamage = 1;
 		double projectilSpeed = 0.05;
-		boss = new Boss(position, size, speed, life, projectilLenght, damage, projectilDamage, projectilSpeed, imagePath);
+		boss = new Steven(position, size, speed, life, projectilLenght, damage, projectilDamage, projectilSpeed, imagePath);
 	}
 
 	/**
@@ -62,6 +64,7 @@ public class BossRoom extends Room {
 	 * Mettre a jour le boss en regardant si il a été touché par une larme ou bien si il a touche le hero.
 	 */
 	public void updateBoss(){
+		if(isBossDead()){return;}
 		boss.shoot(super.getHero());
 		ArrayList<Larme> larmeToDelete = new ArrayList<>();
 			boss.setWait(boss.getWait() > 0 ? boss.getWait() - 1 : 0);
@@ -88,26 +91,25 @@ public class BossRoom extends Room {
 	/**
 	 * Draw boss.
 	 */
-	public void drawBoss(){
-		StdDraw.picture(boss.getPosition().getX(), boss.getPosition().getY(), boss.getImagePath(), boss.getSize().getX(), boss.getSize().getY());
+	public void drawBoss() {
+		if (!isBossDead()) {
+			StdDraw.picture(boss.getPosition().getX(), boss.getPosition().getY(), boss.getImagePath(), boss.getSize().getX(), boss.getSize().getY());
+		}
 	}
 
+	private final Vector2 positionHole = new Vector2(0.5,0.5);
+	private final Vector2 sizeHole = new Vector2(0.15,0.15);
+
 	public boolean isBossDead(){
-		if(boss.getLife() < 0){
-			if (super.getUpDoor() != null) {
-				super.getUpDoor().setOpen(true);
-			}
-			if (super.getDownDoor() != null) {
-				super.getDownDoor().setOpen(true);
-			}
-			if (super.getLeftDoor() != null) {
-				super.getLeftDoor().setOpen(true);
-			}
-			if (super.getRightDoor() != null) {
-				super.getRightDoor().setOpen(true);
-			}
+		if(boss.getLife() == 0){
+			StdDraw.picture(positionHole.getX(), positionHole.getY(), ImagePaths.HOLE, sizeHole.getX(), sizeHole.getY());
 			return true;
 		}
+		return false;
+	}
+
+	public boolean isGoInHole(Hero h){
+		if(isBossDead()) return Physics.rectangleCollision(h.getPosition(), h.getSize(), positionHole, sizeHole);
 		return false;
 	}
 	

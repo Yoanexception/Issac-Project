@@ -56,6 +56,21 @@ public class Boss extends Monster {
 	 */
 	public void shoot(Hero h){}
 
+	/**
+	 * Rend si le monstre a été touche par une larme ou non
+	 *
+	 * @param l la liste des larmes present dans la salle
+	 * @return the boolean
+	 */
+	public boolean isHit(Larme l){
+		if(l.isShootByHero() && Physics.rectangleCollision(super.getPosition(), super.getSize(), l.getPosition(), l.getSize())) {
+			super.setLife(super.getLife() - 1);
+			System.out.println(super.getLife());
+			return true;
+		}
+		return false;
+	}
+
 	public String getImagePath() {
 		return imagePath;
 	}

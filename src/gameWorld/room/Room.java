@@ -346,9 +346,9 @@ public class Room
 	public void killAllMonster(){}
 
 	/**
-	 * Is boss dead boolean.
-	 *
-	 * @return the boolean
+	 *	Appele la fonction qui determine si le boss est mort.
 	 */
 	public boolean isBossDead() { return false; }
+
+	public boolean isGoInHole(Hero h){ return false; }
 }

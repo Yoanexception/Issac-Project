@@ -38,7 +38,7 @@ public class GameWorld
 	}
 
 	public boolean isGameWin(){
-		if(currentRoom.isBossDead()){
+		if(currentRoom.isGoInHole(hero)){
 			if(currentFloor.getNextFloor() == null){
 				return true;
 			} else {
