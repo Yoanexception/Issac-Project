@@ -21,7 +21,7 @@ public class WorldGenerator {
         ArrayList<MonsterRoom> monstersRoom = new ArrayList<>();
         for(int i = 0; i < nbMonstersRoom; i++){
             int nbMonsters = (int) (1 + Math.random() * 4);
-            MonsterRoom monsterRoom = new MonsterRoom(hero, null, null,null,null, 0);
+            MonsterRoom monsterRoom = new MonsterRoom(hero, null, null,null,null, nbMonsters);
             monstersRoom.add(monsterRoom);
         }
         Room[][] map = new Room[5][5];
@@ -101,21 +101,26 @@ public class WorldGenerator {
 
             for (int j = 0; j < map[i].length; j++) {
                 if(map[i][j] != null){
-                    boolean doorClose = (!(map[i][j].getClass().getSimpleName().equals("MonsterRoom")) && !(map[i][j].getClass().getSimpleName().equals("BossRoom")));
+                    String type = map[i][j].getClass().getSimpleName();
+                    boolean doorClose = (!(type.equals("MonsterRoom")) && !(type.equals("BossRoom")));
                     if(i!= map.length - 1 && map[i + 1][j] != null){
-                        Door newDoor = new Door(map[i+1][j], doorClose);
+                        int typeRoom = getTypeRoom(map[i+1][j]);
+                        Door newDoor = new Door(map[i+1][j], doorClose, typeRoom);
                         map[i][j].setDownDoor(newDoor);
                     }
                     if(i != 0 && map[i - 1][j] != null){
-                        Door newDoor = new Door(map[i-1][j], doorClose);
+                        int typeRoom = getTypeRoom(map[i-1][j]);
+                        Door newDoor = new Door(map[i-1][j], doorClose, typeRoom);
                         map[i][j].setUpDoor(newDoor);
                     }
                     if(j != map[x].length - 1 && map[i][j + 1] != null){
-                        Door newDoor = new Door(map[i][j+1], doorClose);
+                        int typeRoom = getTypeRoom(map[i][j+1]);
+                        Door newDoor = new Door(map[i][j+1], doorClose, typeRoom);
                         map[i][j].setRightDoor(newDoor);
                     }
                     if(j != 0 && map[i][j - 1] != null){
-                        Door newDoor = new Door(map[i][j-1], doorClose);
+                        int typeRoom = getTypeRoom(map[i][j-1]);
+                        Door newDoor = new Door(map[i][j-1], doorClose, typeRoom);
                         map[i][j].setLeftDoor(newDoor);
                     }
                 }
@@ -126,6 +131,15 @@ public class WorldGenerator {
 
         return map[map.length - 1][map[0].length / 2];
 
+    }
+
+    private static int getTypeRoom(Room r){
+        String className = r.getClass().getSimpleName();
+        return switch (className) {
+            case "ShopRoom" -> 1;
+            case "BossRoom" -> 2;
+            default -> 0;
+        };
     }
 
     private static boolean isNextMonsterRoom(int x, int y, Room[][] map) {

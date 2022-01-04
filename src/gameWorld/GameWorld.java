@@ -99,6 +99,15 @@ public class GameWorld
 		if(StdDraw.isKeyPressed(Controls.killMonster)){
 			currentRoom.killAllMonster();
 		}
+		if(StdDraw.isKeyPressed(Controls.isInvincible)){
+			hero.setInvincible(true);
+		}
+		if(StdDraw.isKeyPressed(Controls.superSpeed)){
+			hero.setSpeed(0.03);
+		}
+		if(StdDraw.isKeyPressed(Controls.superDamage)){
+			hero.setDamageAttack(1000);
+		}
 	}
 
 	public void ifHeroHitDoor(){

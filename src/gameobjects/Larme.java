@@ -172,4 +172,12 @@ public class Larme {
     public void setSize(Vector2 size) {
         this.size = size;
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 }

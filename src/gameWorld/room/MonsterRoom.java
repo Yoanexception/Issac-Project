@@ -240,7 +240,7 @@ public class MonsterRoom extends Room {
 		ArrayList<Larme> larmeToDelete = new ArrayList<>();
 		for(Monster m : monster){
 			m.setWait(m.getWait() > 0 ? m.getWait() - 1 : 0);
-			if(m.hitHero(super.getHero()) && m.getWait() == 0){
+			if(m.hitHero(super.getHero()) && m.getWait() == 0 && !super.getHero().isInvincible()){
 				super.getHero().setLife(super.getHero().getLife() - 1);
 				m.setWait(10);
 			}

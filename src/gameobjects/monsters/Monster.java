@@ -45,7 +45,7 @@ public class Monster {
 	 */
 	public boolean isHit(Larme l){
 		if(l.isShootByHero() && Physics.rectangleCollision(position, size, l.getPosition(), l.getSize())) {
-			life -= 1;
+			life -= l.getDamage();
 			return true;
 		}
 		return false;
@@ -77,7 +77,7 @@ public class Monster {
 	 *
 	 * @return the boolean
 	 */
-	public boolean isDead () { return life == 0; }
+	public boolean isDead () { return life <= 0; }
 
 	/**
 	 * Gets position.

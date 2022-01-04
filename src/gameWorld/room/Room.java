@@ -97,9 +97,7 @@ public class Room
 					StdDraw.filledRectangle(position.getX(), position.getY(), RoomInfos.HALF_TILE_SIZE.getX(),
 							RoomInfos.HALF_TILE_SIZE.getY());
 				} else {
-					StdDraw.setPenColor(StdDraw.DARK_BROWN);
-					StdDraw.filledRectangle(position.getX(), position.getY(), RoomInfos.HALF_TILE_SIZE.getX(),
-							RoomInfos.HALF_TILE_SIZE.getY());
+					StdDraw.picture(position.getX(), position.getY(), ImagePaths.BRICK_WALL, RoomInfos.TILE_SIZE.getX(), RoomInfos.TILE_SIZE.getY());
 				}
 			}
 		}

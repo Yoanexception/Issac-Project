@@ -26,6 +26,7 @@ public class Hero
 	private int damageAttack;
 	private int gold;
 	private int spikesWait;
+	private boolean invincible;
 
 
 	/**
@@ -49,6 +50,7 @@ public class Hero
 		this.gold = 30;
 		this.lifeMax = HeroInfos.ISSAC_LIFE;
 		this.spikesWait = 0;
+		this.invincible = false;
 	}
 
 	/**
@@ -60,8 +62,10 @@ public class Hero
 	public void updateGameObject(ArrayList<Larme> l, ArrayList<Obstacles> o)
 	{
 		move(o);
-		isHitByLarme(l);
-		hitSpikes(o);
+		if(!invincible){
+			isHitByLarme(l);
+			hitSpikes(o);
+		}
 	}
 
 	/**
@@ -140,7 +144,7 @@ public class Hero
 		for (Larme l : larmes) {
 			if(!l.isShootByHero() && Physics.rectangleCollision(l.getPosition(), l.getSize(), position, size)){
 				toDelete.add(l);
-				life -= 1;
+				life -= l.getDamage();
 			}
 		}
 		Room.deleteLarme(toDelete);
@@ -374,4 +378,12 @@ public class Hero
 	 * @return the damage attack
 	 */
 	public int getDamageAttack() { return damageAttack; }
+
+	public boolean isInvincible() {
+		return invincible;
+	}
+
+	public void setInvincible(boolean invincible) {
+		this.invincible = invincible;
+	}
 }

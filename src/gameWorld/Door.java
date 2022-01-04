@@ -10,17 +10,20 @@ public class Door {
 	private Room nextRoom;
 	private boolean open;
 	private boolean visible;
+	private int type;
 
 	/**
 	 * Instantiates a new Door.
 	 *
 	 * @param nextRoom the next room
 	 * @param open     is the door open
+	 * @param type 	   The type of the port (0 : MonsterRoom ou Spawn, 1 : ShopRoom, 2 : BossRoom)
 	 */
-	public Door(Room nextRoom, boolean open) {
+	public Door(Room nextRoom, boolean open, int type) {
 		this.nextRoom = nextRoom;
 		this.open = open;
 		this.visible = false;
+		this.type = type;
 	}
 
 	/**
@@ -30,10 +33,11 @@ public class Door {
 	 * @param open     is the door open
 	 * @param visible  is the door visible
 	 */
-	public Door(Room nextRoom, boolean open, boolean visible){
+	public Door(Room nextRoom, boolean open, boolean visible, int type){
 		this.nextRoom = nextRoom;
 		this.open = open;
 		this.visible = visible;
+		this.type = type;
 	}
 
 	/**
@@ -85,5 +89,12 @@ public class Door {
 	 * @return the boolean
 	 */
 	public boolean isVisible(){ return this.visible; }
-	
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
 }
