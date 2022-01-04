@@ -28,7 +28,6 @@ public class ImagePaths
 	public static final String FLY = "images/Fly.png";
 
 	public static String HOLE = "images/hole.png";
-	public static String HOLE_NEGATIVE = "images/hole_negative.png";
 	public static String BRICK_WALL = "images/brick_wall.png";
 
 	public static final String BOOS_STEVEN = "images/Boss_Steven_portrait.png";
