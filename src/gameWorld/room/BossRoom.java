@@ -39,16 +39,7 @@ public class BossRoom extends Room {
 	 * Generate boss.
 	 */
 	public void generateBoss() {
-		String imagePath = ImagePaths.BOOS_STEVEN;
-		Vector2 position = new Vector2(0.5, 0.8);
-		Vector2 size = RoomInfos.TILE_SIZE.scalarMultiplication(2);
-		double speed = 0.001;
-		int life = 2;
-		double projectilLenght = 0.4;
-		int damage = 1;
-		int projectilDamage = 1;
-		double projectilSpeed = 0.05;
-		boss = new Steven(position, size, speed, life, projectilLenght, damage, projectilDamage, projectilSpeed, imagePath);
+		boss = new Steven();
 	}
 
 	/**

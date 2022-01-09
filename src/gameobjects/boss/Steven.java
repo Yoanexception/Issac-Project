@@ -4,6 +4,7 @@ import gameWorld.room.Room;
 import gameobjects.Hero;
 import gameobjects.Larme;
 import libraries.Vector2;
+import resources.BossInfos;
 import resources.ImagePaths;
 
 public class Steven extends Boss{
@@ -14,20 +15,11 @@ public class Steven extends Boss{
 
 
     /**
-     * Instantiates a new Boss.
+     * Instantiates a new STEVEN.
      *
-     * @param position        the position
-     * @param size            the size
-     * @param speed           the speed
-     * @param life            the life
-     * @param projectilLength the projectil length
-     * @param damage          the damage
-     * @param projectilDamage the projectil damage
-     * @param projectilSpeed  the projectil speed
-     * @param imagePath       the image path
      */
-    public Steven(Vector2 position, Vector2 size, double speed, int life, double projectilLength, int damage, double projectilDamage, double projectilSpeed, String imagePath) {
-        super(position, size, speed, life, projectilLength, damage, projectilDamage, projectilSpeed, imagePath);
+    public Steven() {
+        super(BossInfos.STEVEN_POSITION, BossInfos.STEVEN_SIZE, BossInfos.STEVEN_SPEED, BossInfos.STEVEN_LIFE, BossInfos.STEVEN_PROJECTILE_RANGE, BossInfos.STEVEN_DAMAGE, BossInfos.STEVEN_PROJECTILE_DAMAGE, BossInfos.STEVEN_PROJECTILE_SPEED, BossInfos.STEVEN_IMAGE_PATH);
         waitMove = 30;
         waitShoot = 40;
         nbMove = 0;

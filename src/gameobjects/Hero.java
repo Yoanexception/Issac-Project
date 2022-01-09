@@ -27,6 +27,7 @@ public class Hero
 	private int gold;
 	private int spikesWait;
 	private boolean invincible;
+	private int keys;
 
 
 	/**
@@ -51,6 +52,7 @@ public class Hero
 		this.lifeMax = HeroInfos.ISSAC_LIFE;
 		this.spikesWait = 0;
 		this.invincible = false;
+		this.keys = 0;
 	}
 
 	/**
@@ -385,5 +387,13 @@ public class Hero
 
 	public void setInvincible(boolean invincible) {
 		this.invincible = invincible;
+	}
+
+	public int getKeys() {
+		return keys;
+	}
+
+	public void setKeys(int keys) {
+		this.keys = keys;
 	}
 }

@@ -189,6 +189,9 @@ public class Room
 		StdDraw.picture(0.15, 0.80, ImagePaths.COIN);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.text(0.205, 0.80, "" + hero.getGold());
+		StdDraw.picture(0.15, 0.75, ImagePaths.KEY);
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.text(0.205, 0.75, "" + hero.getKeys());
 	}
 	
 	/**
@@ -214,7 +217,17 @@ public class Room
 		if (hero.getPosition().getY() > positionUpDoor.getY() - 0.06
 				&& hero.getPosition().getX() > positionUpDoor.getX() - 0.04
 				&& hero.getPosition().getX() < positionUpDoor.getX() + 0.04) {
-			return upDoor != null && upDoor.isOpen();
+			if(upDoor == null) return false;
+			if(upDoor.isKeyLocked() && !upDoor.isOpen()){
+				if(hero.getKeys() >= 1){
+					upDoor.setOpen(true);
+					upDoor.setKeyLocked(false);
+					hero.setKeys(hero.getKeys() - 1);
+					return true;
+				}
+				return false;
+			}
+			return upDoor.isOpen();
 		}
 		return false;
 	}
@@ -229,7 +242,16 @@ public class Room
 		if (hero.getPosition().getY() < positionDownDoor.getY() + 0.085
 				&& hero.getPosition().getX() > positionDownDoor.getX() - 0.04
 				&& hero.getPosition().getX() < positionDownDoor.getX() + 0.04) {
-			return downDoor != null && downDoor.isOpen();
+			if(downDoor == null) return false;
+			if(downDoor.isKeyLocked() && !downDoor.isOpen()){
+				if(hero.getKeys() >= 1){
+					downDoor.setOpen(true);
+					downDoor.setKeyLocked(true);
+					hero.setKeys(hero.getKeys() - 1);
+					return true;
+				}
+			}
+			return downDoor.isOpen();
 		}
 		return false;
 	}
@@ -244,7 +266,16 @@ public class Room
 		if (hero.getPosition().getY() < positionLeftDoor.getY() + 0.04
 				&& hero.getPosition().getY() > positionLeftDoor.getY() - 0.04
 				&& hero.getPosition().getX() < positionLeftDoor.getX() + 0.085) {
-			return leftDoor != null && leftDoor.isOpen();
+			if(leftDoor == null) return false;
+			if(leftDoor.isKeyLocked() && !leftDoor.isOpen()){
+				if(hero.getKeys() >= 1){
+					leftDoor.setOpen(true);
+					leftDoor.setKeyLocked(true);
+					hero.setKeys(hero.getKeys() - 1);
+					return true;
+				}
+			}
+			return leftDoor.isOpen();
 		}
 		return false;
 	}
@@ -259,7 +290,16 @@ public class Room
 		if (hero.getPosition().getY() < positionRightDoor.getY() + 0.04
 				&& hero.getPosition().getY() > positionRightDoor.getY() - 0.04
 				&& hero.getPosition().getX() > positionRightDoor.getX()  - 0.085) {
-			return rightDoor != null && rightDoor.isOpen();
+			if(rightDoor == null) return false;
+			if(rightDoor.isKeyLocked() && !rightDoor.isOpen()){
+				if(hero.getKeys() >= 1){
+					rightDoor.setOpen(true);
+					rightDoor.setKeyLocked(true);
+					hero.setKeys(hero.getKeys() - 1);
+					return true;
+				}
+			}
+			return rightDoor.isOpen();
 		}
 		return false;
 	}

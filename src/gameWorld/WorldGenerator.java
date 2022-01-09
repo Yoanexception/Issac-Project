@@ -85,6 +85,8 @@ public class WorldGenerator {
             }
         }
 
+        //TODO FIX Salle du shop a coté de deux salle de monstres et souvent entre une salle des monstres et le boss.
+
         int k = 0;
         while(!(map[bossX][bossY] == null && isNextRoom(bossX,bossY,map,1))){
             bossX = new Random().nextInt(map.length - 2);
@@ -106,21 +108,25 @@ public class WorldGenerator {
                     if(i!= map.length - 1 && map[i + 1][j] != null){
                         int typeRoom = getTypeRoom(map[i+1][j]);
                         Door newDoor = new Door(map[i+1][j], doorClose, typeRoom);
+                        if(typeRoom == 1) newDoor.setKeyLocked(true);
                         map[i][j].setDownDoor(newDoor);
                     }
                     if(i != 0 && map[i - 1][j] != null){
                         int typeRoom = getTypeRoom(map[i-1][j]);
                         Door newDoor = new Door(map[i-1][j], doorClose, typeRoom);
+                        if(typeRoom == 1) newDoor.setKeyLocked(true);
                         map[i][j].setUpDoor(newDoor);
                     }
                     if(j != map[x].length - 1 && map[i][j + 1] != null){
                         int typeRoom = getTypeRoom(map[i][j+1]);
                         Door newDoor = new Door(map[i][j+1], doorClose, typeRoom);
+                        if(typeRoom == 1) newDoor.setKeyLocked(true);
                         map[i][j].setRightDoor(newDoor);
                     }
                     if(j != 0 && map[i][j - 1] != null){
                         int typeRoom = getTypeRoom(map[i][j-1]);
                         Door newDoor = new Door(map[i][j-1], doorClose, typeRoom);
+                        if(typeRoom == 1) newDoor.setKeyLocked(true);
                         map[i][j].setLeftDoor(newDoor);
                     }
                 }

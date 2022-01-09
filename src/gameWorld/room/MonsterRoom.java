@@ -27,6 +27,7 @@ public class MonsterRoom extends Room {
 	private ArrayList<Obstacles> obstacles;
 	private ArrayList<Coin> coin;
 	private ArrayList<Hearts> hearts;
+	private Key key;
 	private Item passif;
 	private boolean generateItem;
 
@@ -46,6 +47,7 @@ public class MonsterRoom extends Room {
 		this.obstacles = new ArrayList<>();
 		this.coin = new ArrayList<>();
 		this.hearts = new ArrayList<>();
+		this.key = null;
 		this.passif = null;
 		this.generateItem = false;
 		generateMonster(nbMonster);
@@ -135,6 +137,9 @@ public class MonsterRoom extends Room {
 		if(passif != null){
 			StdDraw.picture(passif.getPosition().getX(), passif.getPosition().getY(), passif.getImagePath(), 0.075,0.075);
 		}
+		if(key != null){
+			StdDraw.picture(key.getPosition().getX(), key.getPosition().getY(), key.getImagePath());
+		}
 	}
 
 	/**
@@ -146,6 +151,9 @@ public class MonsterRoom extends Room {
 		moveMonster(super.getHero());
 		hitCoin(super.getHero());
 		hitHeart(super.getHero());
+		if(key != null){
+			hitKey(super.getHero());
+		}
 		if(passif != null){
 			hitPassif(super.getHero());
 		}
@@ -166,6 +174,17 @@ public class MonsterRoom extends Room {
 			}
 		}
 		coin.removeAll(toDelete);
+	}
+
+	/**
+	 * Verifie si l'utilisateur ne marche pas sur la clé pour la recuoerer
+	 * @param h Le hero de la room currente
+	 */
+	private void hitKey(Hero h){
+		if(Physics.rectangleCollision(h.getPosition(), h.getSize(), key.getPosition(), key.getSize())){
+			h.setKeys(h.getKeys() + 1);
+			key = null;
+		}
 	}
 
 	/**
@@ -279,16 +298,16 @@ public class MonsterRoom extends Room {
 	public void monsterDead() {
 		if (monster.size() == 0) {
 			if (super.getUpDoor() != null) {
-				super.getUpDoor().setOpen(true);
+				if(!super.getUpDoor().isKeyLocked()) super.getUpDoor().setOpen(true);
 			}
 			if (super.getDownDoor() != null) {
-				super.getDownDoor().setOpen(true);
+				if(!super.getDownDoor().isKeyLocked()) super.getDownDoor().setOpen(true);
 			}
 			if (super.getLeftDoor() != null) {
-				super.getLeftDoor().setOpen(true);
+				if(!super.getLeftDoor().isKeyLocked()) super.getLeftDoor().setOpen(true);
 			}
 			if (super.getRightDoor() != null) {
-				super.getRightDoor().setOpen(true);
+				if(!super.getRightDoor().isKeyLocked()) super.getRightDoor().setOpen(true);
 			}
 
 			generateItem();
@@ -329,6 +348,18 @@ public class MonsterRoom extends Room {
 					}
 					coin.add(newCoin);
 				}
+			}
+			double randomKey = Math.random();
+			if (randomKey <= 0.4) {
+				double x = 0.2 + Math.random() * 0.6;
+				double y = 0.2 + Math.random() * 0.6;
+				Vector2 position = new Vector2(x, y);
+				while (isOnObstacle(position, Items.sizeItems)){
+					x = 0.2 + Math.random() * 0.6;
+					y = 0.2 + Math.random() * 0.6;
+					position = new Vector2(x, y);
+				}
+				key = new Key(position);
 			}
 			double randomHeart = Math.random();
 			if (randomHeart >= 0.7) {

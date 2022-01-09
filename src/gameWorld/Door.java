@@ -11,6 +11,7 @@ public class Door {
 	private boolean open;
 	private boolean visible;
 	private int type;
+	private boolean keyLocked;
 
 	/**
 	 * Instantiates a new Door.
@@ -24,6 +25,7 @@ public class Door {
 		this.open = open;
 		this.visible = false;
 		this.type = type;
+		this.keyLocked = false;
 	}
 
 	/**
@@ -31,6 +33,23 @@ public class Door {
 	 *
 	 * @param nextRoom the next room
 	 * @param open     is the door open
+	 * @param type 	   The type of the port (0 : MonsterRoom ou Spawn, 1 : ShopRoom, 2 : BossRoom)
+	 * @param keyLocked Définie si la porte a besoin d'etre déverrouiller par une cle avant d'etre ouverte.
+	 */
+	public Door(Room nextRoom, boolean open, int type, boolean keyLocked) {
+		this.nextRoom = nextRoom;
+		this.open = open;
+		this.visible = false;
+		this.type = type;
+		this.keyLocked = keyLocked;
+	}
+
+	/**
+	 * Instantiates a new Door.
+	 *
+	 * @param nextRoom the next room
+	 * @param open     is the door open
+	 * @param type 	   The type of the port (0 : MonsterRoom ou Spawn, 1 : ShopRoom, 2 : BossRoom)
 	 * @param visible  is the door visible
 	 */
 	public Door(Room nextRoom, boolean open, boolean visible, int type){
@@ -38,6 +57,7 @@ public class Door {
 		this.open = open;
 		this.visible = visible;
 		this.type = type;
+		this.keyLocked = false;
 	}
 
 	/**
@@ -96,5 +116,13 @@ public class Door {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public boolean isKeyLocked() {
+		return keyLocked;
+	}
+
+	public void setKeyLocked(boolean keyLocked) {
+		this.keyLocked = keyLocked;
 	}
 }
