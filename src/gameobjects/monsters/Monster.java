@@ -58,7 +58,7 @@ public class Monster {
 	 * @return the boolean
 	 */
 	public boolean hitHero(Hero hero){
-		if(Physics.rectangleCollision(hero.getPosition(), hero.getSize(), position, size)){
+		if(Physics.rectangleCollision(hero.getPosition(), hero.getSize(), position, size) && !hero.isInvincible()){
 			return true;
 		}
 		return false;

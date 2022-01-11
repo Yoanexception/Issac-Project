@@ -3,10 +3,12 @@ package gameWorld.room;
 import gameWorld.Door;
 import gameobjects.Hero;
 import gameobjects.items.Item;
+import libraries.MusicController;
 import libraries.Physics;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.Items;
+import resources.MusicPaths;
 
 import java.util.ArrayList;
 

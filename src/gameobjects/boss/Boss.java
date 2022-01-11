@@ -65,7 +65,6 @@ public class Boss extends Monster {
 	public boolean isHit(Larme l){
 		if(l.isShootByHero() && Physics.rectangleCollision(super.getPosition(), super.getSize(), l.getPosition(), l.getSize())) {
 			super.setLife(super.getLife() - 1);
-			System.out.println(super.getLife());
 			return true;
 		}
 		return false;
