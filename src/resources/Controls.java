@@ -17,6 +17,8 @@ public class Controls
 	public static int superSpeed = Keybinding.keycodeOf('l');
 	public static int superDamage = Keybinding.keycodeOf('p');
 
+	public static int bombs = Keybinding.keycodeOf('b');
+
 	public static int shootUp = Keybinding.keycodeOf(Keybinding.SpecialKeys.UP);
 	public static int shootDown = Keybinding.keycodeOf(Keybinding.SpecialKeys.DOWN);
 	public static int shootLeft = Keybinding.keycodeOf(Keybinding.SpecialKeys.LEFT);

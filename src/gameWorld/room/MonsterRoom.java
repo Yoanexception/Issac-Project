@@ -159,6 +159,31 @@ public class MonsterRoom extends Room {
 		}
 	}
 
+	public void explodeBomb(Bomb b) {
+		super.explodeBomb(b);
+		ArrayList<Obstacles> obstaclesToDelete = new ArrayList<>();
+		for(Obstacles o : obstacles){
+			if(o.getClass().getSimpleName().equals("Rock"))
+			{
+				if(Physics.CircleToPointCollision(o.getPosition(), b.getPosition(), b.getRange(), o.getSize())){
+					obstaclesToDelete.add(o);
+				}
+			}
+		}
+		ArrayList<Monster> monstersToDelete = new ArrayList<>();
+		for(Monster m : monster){
+			if(Physics.CircleToPointCollision(m.getPosition(), b.getPosition(), b.getRange(), m.getSize())){
+				m.setLife(m.getLife() - b.getDamage());
+				System.out.println(m.getLife());
+				if(m.isDead()){
+					monstersToDelete.add(m);
+				}
+			}
+		}
+		obstacles.removeAll(obstaclesToDelete);
+		monster.removeAll(monstersToDelete);
+	}
+
 	/**
 	 * Regarde si le hero n'a pas touche une piece
 	 *
@@ -323,8 +348,8 @@ public class MonsterRoom extends Room {
 			/**
 			 * Generate Coin
 			 */
-			double randomCoin = Math.random();
-			if (randomCoin >= 0.4) {
+			double random = Math.random();
+			if (random <= 0.5) {
 				int randomNbCoin = (int) (1 + Math.random() * 2);
 				for (int i = 0; i < randomNbCoin; i++) {
 					double x = 0.2 + Math.random() * 0.6;
@@ -349,8 +374,7 @@ public class MonsterRoom extends Room {
 					coin.add(newCoin);
 				}
 			}
-			double randomKey = Math.random();
-			if (randomKey <= 0.4) {
+			else if (random <= 0.7) {
 				double x = 0.2 + Math.random() * 0.6;
 				double y = 0.2 + Math.random() * 0.6;
 				Vector2 position = new Vector2(x, y);
@@ -361,8 +385,7 @@ public class MonsterRoom extends Room {
 				}
 				key = new Key(position);
 			}
-			double randomHeart = Math.random();
-			if (randomHeart >= 0.7) {
+			else if (random <= 0.9) {
 				double x = 0.2 + Math.random() * 0.6;
 				double y = 0.2 + Math.random() * 0.6;
 				Vector2 position = new Vector2(x, y);
@@ -382,8 +405,7 @@ public class MonsterRoom extends Room {
 					hearts.add(newHeart);
 				}
 			}
-			double randomPassif = Math.random();
-			if(randomPassif >= 0.85){
+			else {
 				ArrayList<Item> list = Items.getItems();
 				double x = 0.2 + Math.random() * 0.6;
 				double y = 0.2 + Math.random() * 0.6;

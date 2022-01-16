@@ -58,6 +58,9 @@ public class MusicController extends Thread {
             }
         }
 
+        FloatControl control = (FloatControl) auline.getControl(FloatControl.Type.MASTER_GAIN);
+        control.setValue(-30.0f);
+
         auline.start();
         int nBytesRead = 0;
         // 128Kb
@@ -71,16 +74,16 @@ public class MusicController extends Thread {
                     auline.write(abData, 0, nBytesRead);
                 }
 
-                if (this.isCanceled) {
+                if (isCanceled) {
                     System.out.print("Thread has been stopped");
                     break;
                 }
 
-                if (this.isSuspend) {
-                    while (this.isSuspend) {
+                if (isSuspend) {
+                    while (isSuspend) {
                         try {
                             Thread.sleep(250);
-                            if (this.isCanceled) {
+                            if (isCanceled) {
                                 System.out.print("Thread has been stopped");
                                 break;
                             }

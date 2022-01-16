@@ -25,6 +25,12 @@ public class Steven extends Boss{
         nbMove = 0;
     }
 
+    @Override
+    public void updateGameObject(Hero h) {
+        move(h);
+        shoot(h);
+    }
+
     /**
      * Permet de faire bouger le boss selon son caractere
      *

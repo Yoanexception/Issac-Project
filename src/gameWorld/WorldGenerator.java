@@ -72,22 +72,22 @@ public class WorldGenerator {
         int bossX = x;
         int bossY = y;
 
-        //on place la salle du shop
-        boolean shopPlaced = false;
+        x = new Random().nextInt(map.length - 2);
+        y = new Random().nextInt(map[x].length);
 
-        while(!shopPlaced){
+        int k = 0;
+        while(!(map[x][y] == null && isNextRoom(x,y,map, 1))){
             x = new Random().nextInt(map.length - 2);
             y = new Random().nextInt(map[x].length);
-
-            if(map[x][y] == null && isNextMonsterRoom(x,y,map)){
-                map[x][y] = shopRoom;
-                shopPlaced = true;
+            k++;
+            if(k == 50){
+                return generateLevel(hero, nbMonstersRoom);
             }
         }
 
-        //TODO FIX Salle du shop a coté de deux salle de monstres et souvent entre une salle des monstres et le boss.
+        map[x][y] = shopRoom;
 
-        int k = 0;
+        k = 0;
         while(!(map[bossX][bossY] == null && isNextRoom(bossX,bossY,map,1))){
             bossX = new Random().nextInt(map.length - 2);
             bossY = new Random().nextInt(map[x].length);
@@ -169,16 +169,20 @@ public class WorldGenerator {
     private static boolean isNextRoom(int x, int y, Room[][] map, int nbRoom) {
         int i = 0;
         if(x < map.length - 1 && map[x + 1][y] != null){
-            i++;
+            if(map[x + 1][y].getClass().getSimpleName().equals("ShopRoom")) return false;
+            else i++;
         }
         if(x != 0 && map[x - 1][y] != null) {
-            i++;
+            if(map[x - 1][y].getClass().getSimpleName().equals("ShopRoom")) return false;
+            else i++;
         }
         if(y < map.length - 1 && map[x][y + 1] != null){
-            i++;
+            if(map[x][y + 1].getClass().getSimpleName().equals("ShopRoom")) return false;
+            else i++;
         }
         if(y != 0 && map[x][y - 1] != null){
-            i++;
+            if(map[x][y - 1].getClass().getSimpleName().equals("ShopRoom")) return false;
+            else i++;
         }
         return nbRoom == i;
     }

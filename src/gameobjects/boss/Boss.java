@@ -42,19 +42,7 @@ public class Boss extends Monster {
 		this.projectilSpeed = projectilSpeed;
 	}
 
-	/**
-	 * Permet de faire bouger le boss selon son caractere
-	 *
-	 * @param h the h
-	 */
-	public void move(Hero h){}
-
-	/**
-	 * Permet de faire tirer le monstre vers le hero toute les 50 cycles de jeux
-	 *
-	 * @param h the hero
-	 */
-	public void shoot(Hero h){}
+	public void updateGameObject(Hero h){}
 
 	/**
 	 * Rend si le monstre a été touche par une larme ou non

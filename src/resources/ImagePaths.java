@@ -31,6 +31,8 @@ public class ImagePaths
 	public static String BRICK_WALL = "images/brick_wall.png";
 
 	public static final String BOSS_STEVEN = "images/Boss_Steven_portrait.png";
+	public static final String BOSS_LOKI = "images/Boss_Loki_portrait.png";
+	public static final String BOSS_THE_FALLEN = "images/Boss_The_Fallen_portrait.png";
 
 	public static final String CLOSED_DOOR = "images/closed_door.png";
 	public static final String OPENED_DOOR = "images/opened_door.png";

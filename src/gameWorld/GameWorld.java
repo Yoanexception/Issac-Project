@@ -54,6 +54,7 @@ public class GameWorld
 				return true;
 			} else {
 				transitionFloor = 17;
+				hero.setPosition(new Vector2(0.5,0.5));
 				currentFloor = currentFloor.getNextFloor();
 				currentRoom = currentFloor.getCurrentRoom();
 			}
@@ -141,6 +142,9 @@ public class GameWorld
 		}
 		if(StdDraw.isKeyPressed(Controls.superDamage)){
 			hero.setDamageAttack(1000);
+		}
+		if(StdDraw.isKeyPressed(Controls.bombs)){
+			hero.bomb();
 		}
 	}
 

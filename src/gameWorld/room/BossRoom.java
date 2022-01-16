@@ -1,10 +1,13 @@
 package gameWorld.room;
 
 import gameWorld.Door;
+import gameobjects.Bomb;
 import gameobjects.boss.Boss;
 import gameobjects.Hero;
 import gameobjects.Larme;
+import gameobjects.boss.Loki;
 import gameobjects.boss.Steven;
+import gameobjects.boss.TheFallen;
 import libraries.Physics;
 import libraries.StdDraw;
 import libraries.Vector2;
@@ -39,7 +42,7 @@ public class BossRoom extends Room {
 	 * Generate boss.
 	 */
 	public void generateBoss() {
-		boss = new Steven();
+		boss = new TheFallen();
 	}
 
 	/**
@@ -47,7 +50,7 @@ public class BossRoom extends Room {
 	 */
 	public void updateRoom(){
 		super.updateRoom();
-		boss.move(super.getHero());
+		boss.updateGameObject(super.getHero());
 		updateBoss();
 	}
 
@@ -56,11 +59,10 @@ public class BossRoom extends Room {
 	 */
 	public void updateBoss(){
 		if(isBossDead()){return;}
-		boss.shoot(super.getHero());
 		ArrayList<Larme> larmeToDelete = new ArrayList<>();
 			boss.setWait(boss.getWait() > 0 ? boss.getWait() - 1 : 0);
 			if(boss.hitHero(super.getHero()) && boss.getWait() == 0){
-				super.getHero().setLife(super.getHero().getLife() - 1);
+				super.getHero().setLife(super.getHero().getLife() - boss.getDamage());
 				boss.setWait(10);
 			}
 			for(Larme l : super.getLarme()){
@@ -69,6 +71,13 @@ public class BossRoom extends Room {
 				}
 			}
 		super.deleteLarme(larmeToDelete);
+	}
+
+	public void explodeBomb(Bomb b) {
+		super.explodeBomb(b);
+		if(Physics.CircleToPointCollision(boss.getPosition(), b.getPosition(), b.getRange(), boss.getSize())){
+			boss.setLife(boss.getLife() - b.getDamage());
+		}
 	}
 
 	/**

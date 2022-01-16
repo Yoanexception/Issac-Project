@@ -28,6 +28,8 @@ public class Hero
 	private int spikesWait;
 	private boolean invincible;
 	private int keys;
+	private int bomb;
+	private int bombWait;
 
 
 	/**
@@ -48,11 +50,13 @@ public class Hero
 		this.life = HeroInfos.ISSAC_LIFE;
 		this.damageAttack = HeroInfos.ISSAC_DAMAGE_ATTACK;
 		this.speedAttack = 0;
-		this.gold = 30;
+		this.gold = 0;
 		this.lifeMax = HeroInfos.ISSAC_LIFE;
 		this.spikesWait = 0;
 		this.invincible = false;
 		this.keys = 0;
+		this.bomb = 3;
+		this.bombWait = 20;
 	}
 
 	/**
@@ -61,12 +65,14 @@ public class Hero
 	 * @param l La liste des larmes de la salle
 	 * @param o La liste des obstacles de la salle
 	 */
-	public void updateGameObject(ArrayList<Larme> l, ArrayList<Obstacles> o)
-	{
+	public void updateGameObject(ArrayList<Larme> l, ArrayList<Obstacles> o) {
 		move(o);
-		if(!invincible){
+		if (!invincible) {
 			isHitByLarme(l);
 			hitSpikes(o);
+		}
+		if (bombWait > 0) {
+			bombWait -= 1;
 		}
 	}
 
@@ -206,6 +212,15 @@ public class Hero
 			Larme l = new Larme(position, damageAttack, direction, HeroInfos.ISSAC_RANGE, true);
 			Room.addLarme(l);
 			speedAttack = HeroInfos.ISSAC_SPEED_ATTACK;
+		}
+	}
+
+	public void bomb(){
+		if(bomb > 0 && bombWait == 0){
+			Bomb b = new Bomb(position, 4);
+			Room.addBomb(b);
+			bomb -= 1;
+			bombWait = 30;
 		}
 	}
 
@@ -396,4 +411,6 @@ public class Hero
 	public void setKeys(int keys) {
 		this.keys = keys;
 	}
+
+	public int getBomb() { return bomb; }
 }

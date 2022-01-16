@@ -32,4 +32,12 @@ public class Physics
 		}
 		return true;
 	}
+
+	public static boolean CircleToPointCollision(Vector2 pos1, Vector2 pos2, double rayon, Vector2 size1){
+		double dx = (pos1.getX() * pos2.getX());
+		double dy = (pos1.getY() * pos2.getY());
+		double d = dx*dx+dy*dy;
+		System.out.println(d);
+		return d - size1.getX() < rayon*2;
+	}
 }

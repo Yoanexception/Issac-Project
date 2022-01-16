@@ -15,7 +15,7 @@ public class Main
 	{
 		// Hero, world and display initialisation.
 		Hero isaac = new Hero(RoomInfos.POSITION_CENTER_OF_ROOM, HeroInfos.ISAAC_SIZE, HeroInfos.ISAAC_SPEED, ImagePaths.ISAAC);
-		GameWorld world = new GameWorld(isaac, 3);
+		GameWorld world = new GameWorld(isaac, 100);
 		initializeDisplay();
 
 		boolean gameWin = false;

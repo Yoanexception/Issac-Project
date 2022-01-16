@@ -96,10 +96,15 @@ public class Larme {
      * Permet de faire bouger la larme en ligne droite dependant de ça direction ou de la tuer si elle est allé trop loin.
      */
     public void move(){
-
+        double xmax = 0.8900000000000003;
+        double xmin = 0.10999999999999968;
+        double ymax = 0.9000000000000004;
+        double ymin = 0.12999999999999967;
         Vector2 normalizedDirection = getNormalizedDirection();
         Vector2 positionAfterMoving = getPosition().addVector(normalizedDirection);
-        if(positionInitial.distance(positionAfterMoving) < range && positionInitial.distance(positionAfterMoving) < range){
+        if((positionInitial.distance(positionAfterMoving) < range && positionInitial.distance(positionAfterMoving) < range)
+                && !(positionAfterMoving.getX() > xmax || positionAfterMoving.getX() < xmin || positionAfterMoving.getY() > ymax || positionAfterMoving.getY() < ymin)
+        ){
             setPosition(positionAfterMoving);
         } else {
             dead = true;

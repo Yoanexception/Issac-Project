@@ -1,9 +1,11 @@
 package gameWorld.room;
 
 import gameWorld.Door;
+import gameobjects.Bomb;
 import gameobjects.Hero;
 import gameobjects.Larme;
 import gameobjects.obstacles.Obstacles;
+import libraries.Physics;
 import libraries.StdDraw;
 import libraries.Vector2;
 import resources.ImagePaths;
@@ -22,6 +24,7 @@ public class Room
 	private Door upDoor;
 	private Door downDoor;
 	private static ArrayList<Larme> larme = new ArrayList<Larme>();
+	private static ArrayList<Bomb> bombs = new ArrayList<>();
 
 	/**
 	 * Instantiates a new Room.
@@ -48,6 +51,7 @@ public class Room
 	{
 		makeHeroPlay(new ArrayList<Obstacles>());
 		makeLarmePlay();
+		makeBombPlay();
 	}
 
 	/**
@@ -59,6 +63,7 @@ public class Room
 	{
 		makeHeroPlay(o);
 		makeLarmePlay();
+		makeBombPlay();
 	}
 
 
@@ -79,6 +84,24 @@ public class Room
 			}
 		}
 		larme.removeAll(toRemove);
+	}
+
+	private void makeBombPlay() {
+		ArrayList<Bomb> toRemove = new ArrayList<>();
+		for(Bomb b : bombs){
+			b.updateGameObject();
+			if(b.getTimeExplosion() <= 0){
+				explodeBomb(b);
+				toRemove.add(b);
+			}
+		}
+		bombs.removeAll(toRemove);
+	}
+
+	public void explodeBomb(Bomb b) {
+		if (Physics.CircleToPointCollision(hero.getPosition(), b.getPosition(), b.getRange(), hero.getSize()) && !hero.isInvincible()){
+			hero.setLife(hero.getLife() - b.getDamage());
+		}
 	}
 
 	/**
@@ -103,6 +126,7 @@ public class Room
 		}
 		drawDoor();
 		drawLarme();
+		drawBomb();
 		drawObstacles();
 		hero.drawGameObject();
 		showUHDHero();
@@ -119,6 +143,12 @@ public class Room
 	public void drawLarme(){
 		for(Larme l : larme){
 			StdDraw.picture(l.getPosition().getX(), l.getPosition().getY(), l.getImagePath(), l.getSize().getX(),l.getSize().getY());
+		}
+	}
+
+	public void drawBomb(){
+		for(Bomb b : bombs){
+			StdDraw.picture(b.getPosition().getX(), b.getPosition().getY(), b.getImagePath(), b.getSize().getX(), b.getSize().getY());
 		}
 	}
 
@@ -186,12 +216,18 @@ public class Room
 				StdDraw.picture(x, 0.85,ImagePaths.HALF_HEART_HUD, 0.05, 0.05);
 			}
 		}
+		//Show the number of coin
 		StdDraw.picture(0.15, 0.80, ImagePaths.COIN);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.text(0.205, 0.80, "" + hero.getGold());
+		//Show the number of key
 		StdDraw.picture(0.15, 0.75, ImagePaths.KEY);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.text(0.205, 0.75, "" + hero.getKeys());
+		// Show the number of bomb
+		StdDraw.picture(0.15, 0.70, ImagePaths.BOMB);
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.text(0.205, 0.70, "" + hero.getBomb());
 	}
 	
 	/**
@@ -307,7 +343,7 @@ public class Room
 	/**
 	 * Add larme.
 	 *
-	 * @param l the l
+	 * @param l La larma a ajouter;
 	 */
 	public static void addLarme(Larme l){
 		larme.add(l);
@@ -319,6 +355,12 @@ public class Room
 	 * @return the larme
 	 */
 	public ArrayList<Larme> getLarme() {return larme;}
+
+	public static void addBomb(Bomb b){ bombs.add(b); }
+
+	public ArrayList<Bomb> getBomb() { return bombs; }
+
+	public static void deleteBomb(ArrayList<Bomb> toDelete) { bombs.removeAll(toDelete); }
 
 	/**
 	 * Delete larme.
